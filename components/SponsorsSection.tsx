@@ -20,18 +20,26 @@ const sponsorPool = [
   { name: 'Intel', symbol: 'INTEL' },
 ]
 
-function loop(list, repeat = 4) {
-  const out = []
-  for (let i = 0; i < repeat; i++) out.push(...list.map(s => ({ ...s, id: `${s.name}-${i}` })))
+// ✅ FIXED — added types
+function loop(
+  list: Array<{ name: string; symbol: string }>,
+  repeat: number = 4
+) {
+  const out: Array<{ name: string; symbol: string; id: string }> = []
+
+  for (let i = 0; i < repeat; i++) {
+    out.push(...list.map(s => ({ ...s, id: `${s.name}-${i}` })))
+  }
+
   return out
 }
 
 export default function SponsorsSection() {
-  const container1 = useRef(null)
-  const container2 = useRef(null)
+  const container1 = useRef<HTMLDivElement | null>(null)
+  const container2 = useRef<HTMLDivElement | null>(null)
 
   const [isVisible, setIsVisible] = useState(false)
-  const sectionRef = useRef(null)
+  const sectionRef = useRef<HTMLElement | null>(null)
 
   const row1 = loop(sponsorPool, 4)
   const row2 = loop([...sponsorPool].reverse(), 4)
@@ -46,10 +54,12 @@ export default function SponsorsSection() {
   }, [])
 
   useEffect(() => {
-    const c1 = container1.current, c2 = container2.current
+    const c1 = container1.current
+    const c2 = container2.current
     if (!c1 || !c2) return
 
-    let raf
+    let raf: number
+
     const animate = () => {
       c1.scrollLeft += 2.2
       c2.scrollLeft -= 2.2
@@ -78,13 +88,11 @@ export default function SponsorsSection() {
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
       `}
     >
-
-      {/* 🔮 BACKGROUND SPLINE (behind everything) */}
+      {/* Background spline */}
       <div className="absolute inset-0 -z-40 pointer-events-none opacity-40">
         <Spline scene="https://prod.spline.design/queVyJt7qimS-Ous/scene.splinecode" />
       </div>
 
-      {/* fade overlay (soft + subtle over watermark) */}
       <div
         className="absolute bottom-0 right-0 -z-30"
         style={{
@@ -93,14 +101,13 @@ export default function SponsorsSection() {
           background:
             'linear-gradient(270deg, rgba(0,0,0,0.98) 50%, rgba(0,0,0,0.75) 78%, rgba(0,0,0,0.05) 100%)',
           pointerEvents: 'none',
-          backdropFilter: 'blur(3px)'
+          backdropFilter: 'blur(3px)',
         }}
       />
 
-      {/* optional subtle dark overlay to keep things readable */}
       <div className="absolute inset-0 -z-20 bg-black/50 backdrop-blur-[1px]" />
 
-      {/* HEADER */}
+      {/* Header */}
       <div className="relative z-10 max-w-6xl mx-auto mb-14 flex items-center justify-between flex-wrap gap-6">
         <div>
           <h2 className="text-6xl md:text-7xl font-black tracking-tight">
@@ -120,7 +127,7 @@ export default function SponsorsSection() {
         </Link>
       </div>
 
-      {/* ROW 1 */}
+      {/* Row 1 */}
       <div className="relative overflow-hidden py-10 mb-6">
         <div ref={container1} className="flex overflow-x-hidden">
           <div className="flex gap-10 items-center">
@@ -137,7 +144,7 @@ export default function SponsorsSection() {
         </div>
       </div>
 
-      {/* ROW 2 */}
+      {/* Row 2 */}
       <div className="relative overflow-hidden py-10">
         <div ref={container2} className="flex overflow-x-hidden">
           <div className="flex gap-10 items-center">
@@ -160,25 +167,30 @@ export default function SponsorsSection() {
           width: 18rem;
           height: 8rem;
           border-radius: 1rem;
-          background: rgba(255,255,255,.05);
-          border: 1px solid rgba(255,255,255,.15);
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.15);
           backdrop-filter: blur(6px);
           display: flex;
           gap: 1.25rem;
           align-items: center;
           justify-content: center;
-          transition: .25s;
+          transition: 0.25s;
         }
         .card-hover {
           position: absolute;
           inset: 0;
           border-radius: 1rem;
-          background: rgba(255,255,255,.25);
+          background: rgba(255, 255, 255, 0.25);
           opacity: 0;
-          transition: .25s;
+          transition: 0.25s;
         }
-        .group:hover .card { transform: scale(1.05); border-color: rgba(255,255,255,.35); }
-        .group:hover .card-hover { opacity: .15; }
+        .group:hover .card {
+          transform: scale(1.05);
+          border-color: rgba(255, 255, 255, 0.35);
+        }
+        .group:hover .card-hover {
+          opacity: 0.15;
+        }
       `}</style>
     </section>
   )
