@@ -1,0 +1,286 @@
+/* globals.css - CORRECTED VERSION */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap');
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-orbitron: 'Orbitron', sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
+}
+
+@keyframes scroll-fast {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
+}
+
+/* Utility animation classes */
+.animate-fade-in {
+  animation: fade-in 1s ease-out;
+}
+
+.animate-fade-in-delayed {
+  animation: fade-in 1s ease-out 0.3s both;
+}
+
+.animate-fade-in-delayed-2 {
+  animation: fade-in 1s ease-out 0.6s both;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 6s ease-in-out 3s infinite;
+}
+
+.animate-scroll {
+  animation: scroll 20s linear infinite;
+}
+
+.animate-scroll-fast {
+  animation: scroll-fast 15s linear infinite;
+}
+/* floating space dust */
+.cosmic-particles {
+  background-image: radial-gradient(white 1px, transparent 1px);
+  background-size: 3px 3px;
+  animation: drift 25s linear infinite;
+  opacity: .15;
+}
+
+@keyframes drift {
+  from { transform: translateY(0px) translateX(0px); }
+  to   { transform: translateY(-120px) translateX(80px); }
+}
+
+/* subtle cosmic glows */
+.cosmic-glow {
+  background: radial-gradient(40% 40% at 50% 50%, rgba(0,255,255,.22), transparent);
+  filter: blur(80px);
+}
+
+.cosmic-glow-2 {
+  background: radial-gradient(40% 40% at 50% 50%, rgba(255,0,255,.22), transparent);
+  filter: blur(90px);
+}
+
+/* neon holographic edge */
+.neon-edge {
+  box-shadow: inset 0 0 20px rgba(0,255,255,.25);
+}
+
+/* glow accent bar */
+.glow-bar {
+  box-shadow: 0 0 22px currentColor;
+}
+
+/* subtle parallax depth on details card */
+.event-detail {
+  transform-style: preserve-3d;
+}
+/* Add to your global CSS or tailwind.config.js */
+.glass-panel {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.36);
+}
+@keyframes gridMove {
+  from { transform: translateY(0px); }
+  to { transform: translateY(40px); }
+}
+
+.animate-grid {
+  animation: gridMove 12s linear infinite alternate;
+}
+/* Solar System Loader */
+.portfolio-loader {
+  position: relative;
+  width: 220px;
+  height: 220px;
+}
+.sun {
+  background: radial-gradient(#ff0,#f90);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.planetX { position: absolute; border-radius: 50%; }
+.planet1 { width: 13px; height: 13px; background: #ff8; left: 20px; }
+.planet2 { width: 20px; height: 20px; background: linear-gradient(#00ff00,#09f); animation: rotation 1s infinite linear; left: 23px; }
+.planet3 { width: 17px; height: 17px; background: radial-gradient(#ff9900,#ff4400); left: 49px; }
+
+.orbit {
+  position: absolute; border: 1px solid #fff; border-radius: 50%;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+}
+.orbit1 { width: 100px; height: 100px; animation: rotation 2s infinite linear; }
+.orbit2 { width: 150px; height: 150px; animation: rotation 3s infinite linear; }
+.orbit3 { width: 200px; height: 200px; animation: rotation 6s infinite linear; }
+
+@keyframes rotation {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+/* Loader Animations */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes float-up {
+  0% {
+    transform: translateY(100vh) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) translateX(20px);
+    opacity: 0;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+.animate-spin-reverse {
+  animation: spin-reverse 25s linear infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 1.5s infinite;
+}
+
+.animate-float-up {
+  animation: float-up 15s infinite linear;
+}
+@keyframes scroll-dot {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+}
+
+.animate-scroll-dot {
+  animation: scroll-dot 2s ease-in-out infinite;
+}
+@keyframes scroll-dot {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+}
+
+.animate-scroll-dot {
+  animation: scroll-dot 2s ease-in-out infinite;
+}
