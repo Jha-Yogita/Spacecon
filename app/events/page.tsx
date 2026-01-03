@@ -6,8 +6,8 @@ import Link from 'next/link';
 
 const currentYear = new Date().getFullYear();
 
-// map event titles → images
-const eventImages = {
+// map event titles → images  ✅ FIXED
+const eventImages: Record<string, string> = {
   "DATA SPHERE": "/data.png",
   "DIRACOSMOS": "/dira.png",
   "INNOVEARTH": "/innov.png",
