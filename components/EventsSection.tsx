@@ -27,7 +27,8 @@ export default function SpaceConEvents() {
 
   const displayedEvents = isMobile ? eventsData.slice(0, 3) : eventsData;
 
-  const makeStars = (count, size) =>
+  const makeStars = (count: number, size: number) =>
+
     Array.from({ length: count }).map((_, i) => ({
       id: i,
       top: Math.random() * 120,
