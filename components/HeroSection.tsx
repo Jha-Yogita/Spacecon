@@ -56,11 +56,13 @@ export default function SpaceConHero() {
 
         /* ================== ONLY FIXES HERE ================== */
 
-        /* Make posters slightly smaller */
+        /* ================== DESKTOP POSTER STYLES ================== */
+
+        /* Make posters slightly smaller on desktop */
         @media (min-width: 1024px) {
           .vintage-poster {
-            width: 16.5rem !important;   /* was w-72 */
-            height: 23.5rem !important; /* was 26rem */
+            width: 16.5rem !important;
+            height: 23.5rem !important;
           }
         }
 
@@ -69,7 +71,6 @@ export default function SpaceConHero() {
           transition: filter 0.35s ease, box-shadow 0.35s ease;
         }
 
-        /* REMOVE HOVER SCALE (NO GROW) */
         .vintage-poster:hover {
           transform: translateY(-10px) rotate(var(--rotation)) !important;
           filter: brightness(1.08) contrast(1.05);
@@ -77,74 +78,111 @@ export default function SpaceConHero() {
           z-index: 40;
         }
 
-        /* ================== MOBILE FIXES ================== */
-        @media (max-width: 640px) {
-          /* Reduce spacing between elements on mobile */
-          .relative.z-20.text-center.px-4.max-w-7xl.mx-auto {
-            margin-top: -2rem !important;
-            padding-top: 0 !important;
+        /* ================== MOBILE POSTER STYLES ================== */
+        @media (max-width: 1023px) {
+          .vintage-poster {
+            width: 9rem !important;
+            height: 13rem !important;
+            border-width: 4px !important;
+            display: block !important;
           }
           
-          /* Make countdown fit in one line */
-          .countdown-mobile-container .flex {
-            flex-wrap: nowrap !important;
-            justify-content: center !important;
-            gap: 0.25rem !important;
-            padding-left: 0.5rem !important;
-            padding-right: 0.5rem !important;
+          /* Reposition posters for mobile */
+          .vintage-poster.mobile-top-left {
+            top: 2rem !important;
+            left: 0.5rem !important;
           }
           
-          /* Adjust time unit sizing for mobile */
-          .countdown-mobile-container .time-unit {
-            min-width: 50px !important;
-            flex-shrink: 0 !important;
+          .vintage-poster.mobile-top-right {
+            top: 2rem !important;
+            right: 0.5rem !important;
           }
           
-          /* Make digits slightly smaller to fit */
-          .countdown-mobile-container .tech-font {
-            font-size: 2.5rem !important;
-            line-height: 1 !important;
+          .vintage-poster.mobile-bottom-left {
+            bottom: 2rem !important;
+            left: 0.5rem !important;
           }
           
-          /* Make labels smaller */
-          .countdown-mobile-container .digital-font {
-            font-size: 0.65rem !important;
-            letter-spacing: 0.05em !important;
-            margin-top: -0.25rem !important;
+          .vintage-poster.mobile-bottom-right {
+            bottom: 2rem !important;
+            right: 0.5rem !important;
           }
-          
-          /* Adjust colon size */
-          .countdown-mobile-container .colon {
-            font-size: 2rem !important;
-            margin: 0 0.125rem !important;
-          }
-          
-          /* Reduce spacing between theme and countdown */
-          .mb-2.sm\\:mb-12 {
-            margin-bottom: 0.5rem !important;
-          }
-          
-          /* Reduce countdown top margin */
-          .mt-0.sm\\:mt-0 {
-            margin-top: 0.5rem !important;
-          }
-        }
 
-        /* Extra small devices */
-        @media (max-width: 380px) {
-          .countdown-mobile-container .tech-font {
-            font-size: 2rem !important;
-          }
-          
-          .countdown-mobile-container .digital-font {
+          /* Scale down poster content for mobile */
+          .vintage-poster .russo-font {
             font-size: 0.5rem !important;
+            letter-spacing: 0.2em !important;
           }
           
-          .countdown-mobile-container .colon {
+          .vintage-poster .text-5xl {
             font-size: 1.5rem !important;
           }
+          
+          .vintage-poster .text-4xl {
+            font-size: 1.25rem !important;
+          }
+          
+          .vintage-poster .text-3xl {
+            font-size: 1rem !important;
+          }
+          
+          .vintage-poster .cyber-font,
+          .vintage-poster .digital-font {
+            font-size: 0.4rem !important;
+            letter-spacing: 0.15em !important;
+          }
+          
+          .vintage-poster .py-2 {
+            padding-top: 0.25rem !important;
+            padding-bottom: 0.25rem !important;
+          }
+          
+          .vintage-poster .py-3 {
+            padding-top: 0.35rem !important;
+            padding-bottom: 0.35rem !important;
+          }
+          
+          .vintage-poster .mt-4 {
+            margin-top: 0.5rem !important;
+          }
+          
+          .vintage-poster .mb-3,
+          .vintage-poster .mb-4 {
+            margin-bottom: 0.35rem !important;
+          }
+          
+          /* Scale corner accents */
+          .vintage-poster .w-10 {
+            width: 0.75rem !important;
+            height: 0.75rem !important;
+          }
+          
+          /* Reduce border thickness */
+          .vintage-poster .border-4 {
+            border-width: 2px !important;
+          }
+          
+          .vintage-poster .border-6 {
+            border-width: 3px !important;
+          }
+          
+          /* Adjust illustrations for mobile */
+          .vintage-poster .relative.w-40,
+          .vintage-poster .relative.w-28,
+          .vintage-poster .relative.w-48 {
+            transform: scale(0.55) !important;
+          }
         }
 
+        @media (max-width: 640px) {
+          /* Further reduce poster size on very small screens */
+          .vintage-poster {
+            width: 7.5rem !important;
+            height: 11rem !important;
+          }
+        }
+
+        /* ================== MAIN CONTENT MOBILE FIXES ================== */
         /* ==================================================== */
 
         @keyframes glowPulse {
