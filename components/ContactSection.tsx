@@ -19,9 +19,9 @@ export default function ContactSection() {
   const [parallax, setParallax] = useState({ x: 0, y: 0 });
 
   const contacts = [
-    { name: 'Nikhil Kumar', role: 'Coordinator', phone: '88103 13021' },
-    { name: 'Avantika Ambra', role: 'Coordinator', phone: '99115 61128' },
-    { name: 'Omkar Ahuja', role: 'Coordinator', phone: '97111 06833' },
+    { name: 'Ashu Anand', role: 'Coordinator', phone: '8920611106' },
+    { name: 'Vansh Maheshwari', role: 'Coordinator', phone: '9958716677' },
+    { name: 'Harsh Swami', role: 'Coordinator', phone: '89209424295' },
   ];
 
   return (
