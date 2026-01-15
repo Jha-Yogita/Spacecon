@@ -77,194 +77,242 @@ export default function SpaceConHero() {
           z-index: 40;
         }
 
-        /* ================== MOBILE FIXES ================== */
-        @media (max-width: 640px) {
-          /* MOBILE POSTERS - Show all 4, smaller size */
-          .mobile-poster {
-            width: 120px !important;
-            height: 170px !important;
-            border-width: 3px !important;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.8) !important;
-            z-index: 10;
-          }
-          
-          /* Reduce text sizes */
-          .mobile-poster .russo-font.text-5xl {
-            font-size: 1.5rem !important;
-            text-shadow: 1px 1px 0 currentColor !important;
-          }
-          
-          .mobile-poster .russo-font.text-3xl,
-          .mobile-poster .russo-font.text-4xl {
-            font-size: 1rem !important;
-            text-shadow: 1px 1px 0 currentColor !important;
-          }
-          
-          .mobile-poster .cyber-font {
-            font-size: 0.5rem !important;
-            letter-spacing: 0.1em !important;
-          }
-          
-          .mobile-poster .text-\[10px\] {
-            font-size: 0.4rem !important;
-          }
-          
-          .mobile-poster .russo-font.text-xs {
-            font-size: 0.45rem !important;
-            letter-spacing: 0.15em !important;
-          }
-          
-          /* Reduce illustration sizes */
-          .mobile-poster .flex-1 .relative {
-            transform: scale(0.7) !important;
-          }
-          
-          /* Adjust padding */
-          .mobile-poster .px-6,
-          .mobile-poster .px-4 {
-            padding-left: 0.5rem !important;
-            padding-right: 0.5rem !important;
-          }
-          
-          .mobile-poster .py-4 {
-            padding-top: 0.25rem !important;
-            padding-bottom: 0.25rem !important;
-          }
-          
-          .mobile-poster .py-3 {
-            padding-top: 0.25rem !important;
-            padding-bottom: 0.25rem !important;
-          }
-          
-          .mobile-poster .py-2 {
-            padding-top: 0.2rem !important;
-            padding-bottom: 0.2rem !important;
-          }
-          
-          /* Reduce border widths */
-          .mobile-poster .border-4 {
-            border-width: 1.5px !important;
-          }
-          
-          .mobile-poster .border-6 {
-            border-width: 2px !important;
-          }
-          
-          .mobile-poster .border-8 {
-            border-width: 3px !important;
-          }
-          
-          /* Reduce corner accent sizes */
-          .mobile-poster .w-10.h-10 {
-            width: 1rem !important;
-            height: 1rem !important;
-            border-width: 2px !important;
-          }
-          
-          /* Adjust spacing for mobile layout */
-          .mobile-poster.top-4 {
-            top: 1rem !important;
-          }
-          
-          .mobile-poster.bottom-4 {
-            bottom: 1rem !important;
-          }
-          
-          .mobile-poster.left-4 {
-            left: 0.75rem !important;
-          }
-          
-          .mobile-poster.right-4 {
-            right: 0.75rem !important;
-          }
-          
-          /* Reduce spacing between elements on mobile */
-          .relative.z-20.text-center.px-4.max-w-7xl.mx-auto {
-            margin-top: -2rem !important;
-            padding-top: 0 !important;
-          }
-          
-          /* Make countdown fit in one line */
-          .countdown-mobile-container .flex {
-            flex-wrap: nowrap !important;
-            justify-content: center !important;
-            gap: 0.25rem !important;
-            padding-left: 0.5rem !important;
-            padding-right: 0.5rem !important;
-          }
-          
-          /* Adjust time unit sizing for mobile */
-          .countdown-mobile-container .time-unit {
-            min-width: 50px !important;
-            flex-shrink: 0 !important;
-          }
-          
-          /* Make digits slightly smaller to fit */
-          .countdown-mobile-container .tech-font {
-            font-size: 2.5rem !important;
-            line-height: 1 !important;
-          }
-          
-          /* Make labels smaller */
-          .countdown-mobile-container .digital-font {
-            font-size: 0.65rem !important;
-            letter-spacing: 0.05em !important;
-            margin-top: -0.25rem !important;
-          }
-          
-          /* Adjust colon size */
-          .countdown-mobile-container .colon {
-            font-size: 2rem !important;
-            margin: 0 0.125rem !important;
-          }
-          
-          /* Reduce spacing between theme and countdown */
-          .mb-2.sm\\:mb-12 {
-            margin-bottom: 0.5rem !important;
-          }
-          
-          /* Reduce countdown top margin */
-          .mt-0.sm\\:mt-0 {
-            margin-top: 0.5rem !important;
-          }
-        }
+       /* ================== MOBILE FIXES ================== */
+@media (max-width: 640px) {
+  /* MOBILE POSTERS - Show all 4, smaller size */
+  .mobile-poster {
+    width: 120px !important;
+    height: 170px !important;
+    border-width: 3px !important;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.8) !important;
+    z-index: 10;
+  }
+  
+  /* Reduce text sizes */
+  .mobile-poster .russo-font.text-5xl {
+    font-size: 1.5rem !important;
+    text-shadow: 1px 1px 0 currentColor !important;
+  }
+  
+  .mobile-poster .russo-font.text-3xl,
+  .mobile-poster .russo-font.text-4xl {
+    font-size: 1rem !important;
+    text-shadow: 1px 1px 0 currentColor !important;
+  }
+  
+  .mobile-poster .cyber-font {
+    font-size: 0.5rem !important;
+    letter-spacing: 0.1em !important;
+  }
+  
+  .mobile-poster .text-\[10px\] {
+    font-size: 0.4rem !important;
+  }
+  
+  .mobile-poster .russo-font.text-xs {
+    font-size: 0.45rem !important;
+    letter-spacing: 0.15em !important;
+  }
+  
+  /* Reduce illustration sizes */
+  .mobile-poster .flex-1 .relative {
+    transform: scale(0.7) !important;
+  }
+  
+  /* Adjust padding */
+  .mobile-poster .px-6,
+  .mobile-poster .px-4 {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  
+  .mobile-poster .py-4 {
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+  }
+  
+  .mobile-poster .py-3 {
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+  }
+  
+  .mobile-poster .py-2 {
+    padding-top: 0.2rem !important;
+    padding-bottom: 0.2rem !important;
+  }
+  
+  /* Reduce border widths */
+  .mobile-poster .border-4 {
+    border-width: 1.5px !important;
+  }
+  
+  .mobile-poster .border-6 {
+    border-width: 2px !important;
+  }
+  
+  .mobile-poster .border-8 {
+    border-width: 3px !important;
+  }
+  
+  /* Reduce corner accent sizes */
+  .mobile-poster .w-10.h-10 {
+    width: 1rem !important;
+    height: 1rem !important;
+    border-width: 2px !important;
+  }
+  
+  /* Adjust spacing for mobile layout */
+  .mobile-poster.top-4 {
+    top: 1rem !important;
+  }
+  
+  .mobile-poster.bottom-4 {
+    bottom: 1rem !important;
+  }
+  
+  .mobile-poster.left-4 {
+    left: 0.75rem !important;
+  }
+  
+  .mobile-poster.right-4 {
+    right: 0.75rem !important;
+  }
+  
+  /* Slow down animation on mobile */
+  .mobile-poster {
+    animation: posterFloat 8s ease-in-out infinite !important;
+  }
+  
+  /* Reduce spacing between elements on mobile */
+  .relative.z-20.text-center.px-4.max-w-7xl.mx-auto {
+    margin-top: -2rem !important;
+    padding-top: 0 !important;
+  }
+  
+  /* Make countdown fit in one line */
+  .countdown-mobile-container .flex {
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    gap: 0.25rem !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  
+  /* Adjust time unit sizing for mobile */
+  .countdown-mobile-container .time-unit {
+    min-width: 50px !important;
+    flex-shrink: 0 !important;
+  }
+  
+  /* Make digits slightly smaller to fit */
+  .countdown-mobile-container .tech-font {
+    font-size: 2.5rem !important;
+    line-height: 1 !important;
+  }
+  
+  /* Make labels smaller */
+  .countdown-mobile-container .digital-font {
+    font-size: 0.65rem !important;
+    letter-spacing: 0.05em !important;
+    margin-top: -0.25rem !important;
+  }
+  
+  /* Adjust colon size */
+  .countdown-mobile-container .colon {
+    font-size: 2rem !important;
+    margin: 0 0.125rem !important;
+  }
+  
+  /* Reduce spacing between theme and countdown */
+  .mb-2.sm\\:mb-12 {
+    margin-bottom: 0.5rem !important;
+  }
+  
+  /* Reduce countdown top margin */
+  .mt-0.sm\\:mt-0 {
+    margin-top: 0.5rem !important;
+  }
+  
+  /* ====== HEADING FIX - RESTORE TO ORIGINAL SIZE ====== */
+  /* MAIN TITLE - Original larger size */
+  .logo-font {
+    font-size: 3.5rem !important; /* Increased from 2.5rem */
+    line-height: 0.9 !important;
+    letter-spacing: -0.01em !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  /* Reduce text shadow on mobile for better performance */
+  .logo-font.glitch {
+    text-shadow: 0 0 20px rgba(220, 38, 38, 0.8), 2px 2px 0 #DC2626, 4px 4px 0 rgba(0, 0, 0, 0.8) !important;
+  }
+  
+  /* DATE - Keep original size */
+  .nav-font.text-3xl {
+    font-size: 1.25rem !important; /* Original size */
+    letter-spacing: 0.1em !important;
+  }
+  
+  .inline-block.px-5.py-1 {
+    padding: 0.4rem 0.75rem !important;
+    border-width: 1px !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  /* THEME - Keep original size */
+  .nav-font.text-xl {
+    font-size: 0.9rem !important; /* Original size */
+    letter-spacing: 0.15em !important;
+  }
+  
+  .inline-block.px-6.py-1\\.5 {
+    padding: 0.3rem 0.75rem !important;
+    border-width: 1px !important;
+    margin-bottom: 0.5rem !important;
+  }
+}
 
-        /* Extra small devices */
-        @media (max-width: 380px) {
-          .mobile-poster {
-            width: 105px !important;
-            height: 150px !important;
-          }
-          
-          .mobile-poster .russo-font.text-5xl {
-            font-size: 1.25rem !important;
-          }
-          
-          .mobile-poster .russo-font.text-3xl,
-          .mobile-poster .russo-font.text-4xl {
-            font-size: 0.85rem !important;
-          }
-          
-          .mobile-poster.left-4 {
-            left: 0.5rem !important;
-          }
-          
-          .mobile-poster.right-4 {
-            right: 0.5rem !important;
-          }
-          
-          .countdown-mobile-container .tech-font {
-            font-size: 2rem !important;
-          }
-          
-          .countdown-mobile-container .digital-font {
-            font-size: 0.5rem !important;
-          }
-          
-          .countdown-mobile-container .colon {
-            font-size: 1.5rem !important;
-          }
-        }
+/* Extra small devices */
+@media (max-width: 380px) {
+  .mobile-poster {
+    width: 105px !important;
+    height: 150px !important;
+  }
+  
+  .mobile-poster .russo-font.text-5xl {
+    font-size: 1.25rem !important;
+  }
+  
+  .mobile-poster .russo-font.text-3xl,
+  .mobile-poster .russo-font.text-4xl {
+    font-size: 0.85rem !important;
+  }
+  
+  .mobile-poster.left-4 {
+    left: 0.5rem !important;
+  }
+  
+  .mobile-poster.right-4 {
+    right: 0.5rem !important;
+  }
+  
+  .countdown-mobile-container .tech-font {
+    font-size: 2rem !important;
+  }
+  
+  .countdown-mobile-container .digital-font {
+    font-size: 0.5rem !important;
+  }
+  
+  .countdown-mobile-container .colon {
+    font-size: 1.5rem !important;
+  }
+  
+  /* Extra small heading */
+  .logo-font {
+    font-size: 3rem !important; /* Slightly smaller for very small screens */
+  }
+}
 
         /* ==================================================== */
 
