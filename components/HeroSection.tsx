@@ -58,6 +58,35 @@ export default function SpaceConHero() {
 
         /* ================== DESKTOP POSTER STYLES ================== */
 
+        /* ================== DESKTOP POSTER STYLES ================== */
+
+        /* ================== DESKTOP POSTER STYLES ================== */
+
+        /* Make posters slightly smaller on desktop */
+        @media (min-width: 1024px) {
+          .vintage-poster {
+            width: 16.5rem !important;
+            height: 23.5rem !important;
+          }
+        }
+
+        .vintage-poster {
+          animation: posterFloat 7s ease-in-out infinite;
+          transition: filter 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .vintage-poster:hover {
+          transform: translateY(-10px) rotate(var(--rotation)) !important;
+          filter: brightness(1.08) contrast(1.05);
+          box-shadow: 0 28px 80px rgba(220,38,38,0.45);
+          z-index: 40;
+        }
+
+        /* ================== MOBILE POSTER STYLES ================== */
+       /* ================== DESKTOP POSTER STYLES ================== */
+
+       /* ================== DESKTOP POSTER STYLES ================== */
+
         /* Make posters slightly smaller on desktop */
         @media (min-width: 1024px) {
           .vintage-poster {
@@ -81,108 +110,131 @@ export default function SpaceConHero() {
         /* ================== MOBILE POSTER STYLES ================== */
         @media (max-width: 1023px) {
           .vintage-poster {
-            width: 9rem !important;
-            height: 13rem !important;
-            border-width: 4px !important;
+            width: 5.5rem !important;
+            height: 8rem !important;
+            border-width: 3px !important;
             display: block !important;
+            opacity: 0.85 !important;
           }
           
-          /* Reposition posters for mobile */
+          /* Reposition posters for mobile - closer to edges */
           .vintage-poster.mobile-top-left {
-            top: 2rem !important;
-            left: 0.5rem !important;
+            top: 1rem !important;
+            left: -0.5rem !important;
           }
           
           .vintage-poster.mobile-top-right {
-            top: 2rem !important;
-            right: 0.5rem !important;
+            top: 1rem !important;
+            right: -0.5rem !important;
           }
           
           .vintage-poster.mobile-bottom-left {
-            bottom: 2rem !important;
-            left: 0.5rem !important;
+            bottom: 1rem !important;
+            left: -0.5rem !important;
           }
           
           .vintage-poster.mobile-bottom-right {
-            bottom: 2rem !important;
-            right: 0.5rem !important;
+            bottom: 1rem !important;
+            right: -0.5rem !important;
           }
 
           /* Scale down poster content for mobile */
           .vintage-poster .russo-font {
-            font-size: 0.5rem !important;
-            letter-spacing: 0.2em !important;
+            font-size: 0.35rem !important;
+            letter-spacing: 0.15em !important;
+            line-height: 1.1 !important;
           }
           
           .vintage-poster .text-5xl {
-            font-size: 1.5rem !important;
+            font-size: 0.9rem !important;
+            line-height: 1.1 !important;
           }
           
           .vintage-poster .text-4xl {
-            font-size: 1.25rem !important;
+            font-size: 0.75rem !important;
+            line-height: 1.1 !important;
           }
           
           .vintage-poster .text-3xl {
-            font-size: 1rem !important;
+            font-size: 0.6rem !important;
+            line-height: 1.1 !important;
           }
           
           .vintage-poster .cyber-font,
           .vintage-poster .digital-font {
-            font-size: 0.4rem !important;
-            letter-spacing: 0.15em !important;
+            font-size: 0.3rem !important;
+            letter-spacing: 0.1em !important;
           }
           
           .vintage-poster .py-2 {
-            padding-top: 0.25rem !important;
-            padding-bottom: 0.25rem !important;
+            padding-top: 0.15rem !important;
+            padding-bottom: 0.15rem !important;
           }
           
           .vintage-poster .py-3 {
-            padding-top: 0.35rem !important;
-            padding-bottom: 0.35rem !important;
+            padding-top: 0.2rem !important;
+            padding-bottom: 0.2rem !important;
           }
           
-          .vintage-poster .mt-4 {
-            margin-top: 0.5rem !important;
+          .vintage-poster .px-4 {
+            padding-left: 0.3rem !important;
+            padding-right: 0.3rem !important;
+          }
+          
+          .vintage-poster .mt-4,
+          .vintage-poster .mt-3 {
+            margin-top: 0.3rem !important;
           }
           
           .vintage-poster .mb-3,
           .vintage-poster .mb-4 {
-            margin-bottom: 0.35rem !important;
+            margin-bottom: 0.25rem !important;
           }
           
           /* Scale corner accents */
           .vintage-poster .w-10 {
-            width: 0.75rem !important;
-            height: 0.75rem !important;
+            width: 0.5rem !important;
+            height: 0.5rem !important;
           }
           
           /* Reduce border thickness */
           .vintage-poster .border-4 {
-            border-width: 2px !important;
+            border-width: 1.5px !important;
           }
           
           .vintage-poster .border-6 {
-            border-width: 3px !important;
+            border-width: 2px !important;
+          }
+          
+          .vintage-poster .border-3 {
+            border-width: 1px !important;
           }
           
           /* Adjust illustrations for mobile */
           .vintage-poster .relative.w-40,
           .vintage-poster .relative.w-28,
-          .vintage-poster .relative.w-48 {
-            transform: scale(0.55) !important;
+          .vintage-poster .relative.w-48,
+          .vintage-poster .relative.w-full {
+            transform: scale(0.35) !important;
+          }
+          
+          /* Reduce shadows on mobile */
+          .vintage-poster {
+            box-shadow: 0 10px 30px rgba(220,38,38,0.5) !important;
           }
         }
 
         @media (max-width: 640px) {
-          /* Further reduce poster size on very small screens */
+          /* Further adjustments for small phones */
           .vintage-poster {
-            width: 7.5rem !important;
-            height: 11rem !important;
+            width: 4.5rem !important;
+            height: 6.5rem !important;
           }
         }
 
         /* ================== MAIN CONTENT MOBILE FIXES ================== */
+        /* ================== MAIN CONTENT MOBILE FIXES ================== */
+
         /* ==================================================== */
 
         @keyframes glowPulse {
