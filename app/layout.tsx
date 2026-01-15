@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
-import { Montserrat, Poppins } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import Loader from '@/components/Loader';
 
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "SpaceCon 2026",
-  description: "Multiverse Menace — SpaceCon Tech Fest",
+  title: "Spacecon",
+  description: "Premium navbar example",
 };
 
 export default function RootLayout({
@@ -16,11 +19,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-black text-white">
-        
+      <body className={inter.className}>
+        <Loader>
           <Navbar />
-          <main className="pt-24">{children}</main>
-      
+          <main className="pt-24">
+            {children}
+          </main>
+        </Loader>
       </body>
     </html>
   );

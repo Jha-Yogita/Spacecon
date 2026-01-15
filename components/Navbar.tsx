@@ -1,11 +1,16 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
+
 
 export default function MultiverseNavbar() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
+const pathname = usePathname();
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,10 +49,18 @@ export default function MultiverseNavbar() {
     setActive(id);
     setIsMenuOpen(false);
 
-    if (id === 'home') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
+   if (id === 'home') {
+  setActive('home');
+  setIsMenuOpen(false);
+
+  if (pathname !== '/') {
+    router.push('/');
+  } else {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  return;
+}
+
 
     const element = document.getElementById(id);
     if (element) {

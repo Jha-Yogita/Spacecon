@@ -1,6 +1,8 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
+
 
 const sponsors = [
   'SPACEX', 'NASA', 'BLUE ORIGIN', 'GOOGLE', 'MICROSOFT',
@@ -8,6 +10,7 @@ const sponsors = [
 ];
 
 export default function SponsorsSection() {
+  const router = useRouter();
   return (
     <>
       <style jsx global>{`
@@ -123,7 +126,7 @@ export default function SponsorsSection() {
 
           <div className="text-center mt-8 sm:mt-12 lg:mt-16">
             <button
-              onClick={() => window.location.href = '/sponsors'}
+              onClick={() => router.push('/sponsors')}
               className="event-btn starlord text-xl sm:text-2xl lg:text-3xl px-8 sm:px-12 lg:px-16 py-4 sm:py-5 lg:py-6 bg-red-600 text-white border-3 sm:border-4 border-black uppercase shadow-[6px_6px_0_#000] sm:shadow-[8px_8px_0_#000] lg:shadow-[10px_10px_0_#000] hover:bg-red-700 hover:shadow-[0_0_30px_rgba(220,38,38,.8)] hover:-translate-y-1 transition-all duration-300"
             >
               ALL SPONSORS →

@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
+
 
 const currentYear = new Date().getFullYear();
 
@@ -46,6 +48,8 @@ const eventsByDay = [
 export default function EventsPage() {
   const [selectedDay, setSelectedDay] = useState(0);
   const currentDay = eventsByDay[selectedDay];
+  const router = useRouter();
+
 
   const makeStars = (count: number, size: number) =>
     Array.from({ length: count }).map((_, i) => ({
@@ -180,14 +184,15 @@ export default function EventsPage() {
             </h1>
           </div>
 
-          <div className="flex justify-center mb-8 sm:mb-10 md:mb-12">
-            <a
-              href="/"
-              className="mono inline-block px-6 sm:px-8 md:px-10 py-3 sm:py-4 bg-zinc-900 border-2 sm:border-4 border-black text-white text-xs sm:text-sm md:text-base font-bold tracking-wider uppercase shadow-[4px_4px_0_#000] sm:shadow-[8px_8px_0_#000] hover:bg-red-600 hover:shadow-[0_0_30px_rgba(220,38,38,.6)] transition-all duration-300"
-            >
-              ← BACK HOME
-            </a>
-          </div>
+         <div className="flex justify-center mb-8 sm:mb-10 md:mb-12">
+  <button
+    type="button"
+    onClick={() => router.push('/')}
+    className="mono inline-block px-6 sm:px-8 md:px-10 py-3 sm:py-4 bg-zinc-900 border-2 sm:border-4 border-black text-white text-xs sm:text-sm md:text-base font-bold tracking-wider uppercase shadow-[4px_4px_0_#000] sm:shadow-[8px_8px_0_#000] hover:bg-red-600 hover:shadow-[0_0_30px_rgba(220,38,38,.6)] transition-all duration-300"
+  >
+    ← BACK HOME
+  </button>
+</div>
 
           <div className="flex justify-center gap-2 sm:gap-4 md:gap-6 mb-10 sm:mb-12 md:mb-16 flex-wrap px-2">
             {eventsByDay.map((d, i) => (
@@ -273,12 +278,12 @@ export default function EventsPage() {
 
               <div className="hidden sm:block w-px h-4 bg-white/20" />
 
-              <a 
-                href="/privacy-policy"
-                className="mono text-gray-400 hover:text-red-500 transition-colors duration-300 text-xs sm:text-sm font-bold"
-              >
-                Privacy Policy
-              </a>
+             <button
+  onClick={() => router.push('/privacy-policy')}
+  className="mono text-gray-400 hover:text-red-500 transition-colors duration-300 text-xs sm:text-sm font-bold"
+>
+  Privacy Policy
+</button>
             </div>
           </div>
         </footer>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 const eventsData = [
   { id: 1, title: "SKYSCAPE", tagline: "Astrophotography Challenge", prize: "₹6,000", date: "29 JAN - 15 FEB", deadline: "15 FEB", venue: "ONLINE", status: "OPEN", image: "/skyscape.png", rulebook: "#" },
@@ -13,6 +14,7 @@ const eventsData = [
 
 export default function SpaceConEvents() {
   const [isMobile, setIsMobile] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const checkMobile = () => {
@@ -217,7 +219,7 @@ export default function SpaceConEvents() {
 
           <div className="text-center px-4">
             <button
-              onClick={() => window.location.href = '/events'}
+              onClick={() => router.push('/events')}
               className="event-btn starlord text-xl sm:text-2xl md:text-3xl px-8 sm:px-12 md:px-16 py-4 sm:py-5 md:py-6 bg-red-600 text-white border-3 sm:border-4 border-black uppercase shadow-[6px_6px_0_#000] sm:shadow-[8px_8px_0_#000] md:shadow-[10px_10px_0_#000]"
             >
               EXPLORE ALL EVENTS →
