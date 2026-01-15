@@ -10,11 +10,12 @@ function GlowingCube() {
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime();
+    
     if (cubeRef.current) {
       cubeRef.current.rotation.x = t * 0.25;
       cubeRef.current.rotation.y = t * 0.35;
-      cubeRef.current.material.emissiveIntensity =
-        2.2 + Math.sin(t * 2) * 0.6;
+     const material = cubeRef.current.material as THREE.MeshPhysicalMaterial;
+    material.emissiveIntensity = 2.2 + Math.sin(t * 2) * 0.6;
     }
   });
 
