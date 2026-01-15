@@ -4,6 +4,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 
 
+
 const sponsors = [
   'SPACEX', 'NASA', 'BLUE ORIGIN', 'GOOGLE', 'MICROSOFT',
   'NVIDIA', 'ISRO', 'AMAZON', 'META', 'INTEL'

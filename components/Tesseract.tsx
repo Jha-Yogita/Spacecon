@@ -3,9 +3,10 @@
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { useRef } from 'react';
+import * as THREE from 'three';
 
 function GlowingCube() {
-  const cubeRef = useRef();
+   const cubeRef = useRef<THREE.Mesh>(null!);
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime();
