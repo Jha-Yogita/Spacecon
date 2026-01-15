@@ -1,197 +1,137 @@
-'use client'
+'use client';
 
-import { useState, useEffect, useRef } from 'react'
-import Link from 'next/link'
-import dynamic from 'next/dynamic'
+import React from 'react';
 
-const Spline = dynamic(
-  () => import('@splinetool/react-spline').then(m => m.default),
-  { ssr: false }
-)
-
-const sponsorPool = [
-  { name: 'NASA', symbol: '🛰️' },
-  { name: 'SpaceX', symbol: '🚀' },
-  { name: 'Google', symbol: 'G' },
-  { name: 'Microsoft', symbol: 'M' },
-  { name: 'NVIDIA', symbol: 'NV' },
-  { name: 'IBM', symbol: 'IBM' },
-  { name: 'Amazon', symbol: 'A' },
-  { name: 'Intel', symbol: 'INTEL' },
-]
-
-// ✅ FIXED — added types
-function loop(
-  list: Array<{ name: string; symbol: string }>,
-  repeat: number = 4
-) {
-  const out: Array<{ name: string; symbol: string; id: string }> = []
-
-  for (let i = 0; i < repeat; i++) {
-    out.push(...list.map(s => ({ ...s, id: `${s.name}-${i}` })))
-  }
-
-  return out
-}
+const sponsors = [
+  'SPACEX', 'NASA', 'BLUE ORIGIN', 'GOOGLE', 'MICROSOFT',
+  'NVIDIA', 'ISRO', 'AMAZON', 'META', 'INTEL'
+];
 
 export default function SponsorsSection() {
-  const container1 = useRef<HTMLDivElement | null>(null)
-  const container2 = useRef<HTMLDivElement | null>(null)
-
-  const [isVisible, setIsVisible] = useState(false)
-  const sectionRef = useRef<HTMLElement | null>(null)
-
-  const row1 = loop(sponsorPool, 4)
-  const row2 = loop([...sponsorPool].reverse(), 4)
-
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([entry]) => entry.isIntersecting && setIsVisible(true),
-      { threshold: 0.15 }
-    )
-    if (sectionRef.current) obs.observe(sectionRef.current)
-    return () => obs.disconnect()
-  }, [])
-
-  useEffect(() => {
-    const c1 = container1.current
-    const c2 = container2.current
-    if (!c1 || !c2) return
-
-    let raf: number
-
-    const animate = () => {
-      c1.scrollLeft += 2.2
-      c2.scrollLeft -= 2.2
-
-      const max1 = c1.scrollWidth - c1.clientWidth
-      const max2 = c2.scrollWidth - c2.clientWidth
-
-      if (c1.scrollLeft >= max1 / 2) c1.scrollLeft = 0
-      if (c2.scrollLeft <= 0) c2.scrollLeft = max2 / 2
-
-      raf = requestAnimationFrame(animate)
-    }
-
-    raf = requestAnimationFrame(animate)
-    return () => cancelAnimationFrame(raf)
-  }, [])
-
   return (
-    <section
-      ref={sectionRef}
-      id="sponsors"
-      className={`
-        relative min-h-screen pt-28 pb-24 px-4 md:px-10
-        text-white overflow-hidden bg-black
-        transition-all duration-700
-        ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
-      `}
-    >
-      {/* Background spline */}
-      <div className="absolute inset-0 -z-40 pointer-events-none opacity-40">
-        <Spline scene="https://prod.spline.design/queVyJt7qimS-Ous/scene.splinecode" />
-      </div>
+    <>
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@600;700;800;900&display=swap');
 
-      <div
-        className="absolute bottom-0 right-0 -z-30"
-        style={{
-          width: '260px',
-          height: '100px',
-          background:
-            'linear-gradient(270deg, rgba(0,0,0,0.98) 50%, rgba(0,0,0,0.75) 78%, rgba(0,0,0,0.05) 100%)',
-          pointerEvents: 'none',
-          backdropFilter: 'blur(3px)',
-        }}
-      />
+        .starlord { font-family: 'Bangers', cursive; letter-spacing: .06em; }
+        .mono { font-family: 'Montserrat', sans-serif; }
 
-      <div className="absolute inset-0 -z-20 bg-black/50 backdrop-blur-[1px]" />
-
-      {/* Header */}
-      <div className="relative z-10 max-w-6xl mx-auto mb-14 flex items-center justify-between flex-wrap gap-6">
-        <div>
-          <h2 className="text-6xl md:text-7xl font-black tracking-tight">
-            Sponsors
-          </h2>
-
-          <p className="text-gray-300 text-lg mt-2">
-            Proudly powering the mission beyond Earth
-          </p>
-        </div>
-
-        <Link
-          href="/sponsors"
-          className="px-6 py-3 border border-white/25 rounded-full font-bold transition hover:bg-white hover:text-black"
-        >
-          VIEW ALL SPONSORS
-        </Link>
-      </div>
-
-      {/* Row 1 */}
-      <div className="relative overflow-hidden py-10 mb-6">
-        <div ref={container1} className="flex overflow-x-hidden">
-          <div className="flex gap-10 items-center">
-            {row1.map(s => (
-              <div key={s.id} className="flex-shrink-0 group">
-                <div className="card">
-                  <span className="text-4xl">{s.symbol}</span>
-                  <span className="text-2xl font-semibold">{s.name}</span>
-                  <div className="card-hover" />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Row 2 */}
-      <div className="relative overflow-hidden py-10">
-        <div ref={container2} className="flex overflow-x-hidden">
-          <div className="flex gap-10 items-center">
-            {row2.map(s => (
-              <div key={s.id} className="flex-shrink-0 group">
-                <div className="card">
-                  <span className="text-4xl">{s.symbol}</span>
-                  <span className="text-2xl font-semibold">{s.name}</span>
-                  <div className="card-hover" />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <style jsx>{`
-        .card {
-          position: relative;
-          width: 18rem;
-          height: 8rem;
-          border-radius: 1rem;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          backdrop-filter: blur(6px);
-          display: flex;
-          gap: 1.25rem;
-          align-items: center;
-          justify-content: center;
-          transition: 0.25s;
+        @keyframes moveLeft {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
         }
-        .card-hover {
-          position: absolute;
-          inset: 0;
-          border-radius: 1rem;
-          background: rgba(255, 255, 255, 0.25);
-          opacity: 0;
-          transition: 0.25s;
+
+        @keyframes moveRight {
+          from { transform: translateX(-50%); }
+          to { transform: translateX(0); }
         }
-        .group:hover .card {
-          transform: scale(1.05);
-          border-color: rgba(255, 255, 255, 0.35);
+
+        @keyframes planetFloat {
+          0%,100% { transform: translateY(0) rotate(0deg); }
+          50% { transform: translateY(-40px) rotate(6deg); }
         }
-        .group:hover .card-hover {
-          opacity: 0.15;
+
+        .scroll-container:hover {
+          animation-play-state: paused !important;
         }
       `}</style>
-    </section>
-  )
+
+      <section className="relative py-20 sm:py-32 lg:py-40 bg-black overflow-hidden">
+
+        <div className="absolute inset-0 pointer-events-none">
+          <div
+            className="absolute -left-1/2 sm:-left-1/3 lg:-left-1/4 top-1/4 w-[500px] h-[500px] sm:w-[700px] sm:h-[700px] lg:w-[900px] lg:h-[900px] rounded-full"
+            style={{
+              background:
+                'radial-gradient(circle at 30% 30%, #93c5fd, #2563eb 35%, #022c22 70%)',
+              boxShadow:
+                'inset -180px -180px 260px rgba(0,0,0,.95), 0 0 160px rgba(59,130,246,.5)',
+              animation: 'planetFloat 18s ease-in-out infinite'
+            }}
+          />
+          <div
+            className="absolute -right-1/2 sm:-right-1/3 lg:-right-1/4 bottom-0 w-[400px] h-[400px] sm:w-[550px] sm:h-[550px] lg:w-[700px] lg:h-[700px] rounded-full"
+            style={{
+              background:
+                'radial-gradient(circle at 30% 30%, #86efac, #16a34a 35%, #022c22 70%)',
+              boxShadow:
+                'inset -160px -160px 240px rgba(0,0,0,.97), 0 0 140px rgba(34,197,94,.45)',
+              animation: 'planetFloat 22s ease-in-out infinite'
+            }}
+          />
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
+
+          <div className="text-center mb-12 sm:mb-16 lg:mb-24">
+            <h2
+              className="starlord text-5xl sm:text-7xl md:text-8xl lg:text-9xl mt-4 sm:mt-6 text-white"
+              style={{
+                WebkitTextStroke: '2px #dc2626',
+                textShadow: '4px 4px 0 #000'
+              }}
+            >
+              SPONSORS
+            </h2>
+          </div>
+
+          <div className="overflow-hidden mb-8 sm:mb-12 lg:mb-16">
+            <div 
+              className="scroll-container flex gap-4 sm:gap-6 lg:gap-10 w-max"
+              style={{ animation: 'moveLeft 40s linear infinite' }}
+            >
+              {[...sponsors, ...sponsors].map((name, i) => (
+                <div
+                  key={i}
+                  className={`
+                    starlord text-xl sm:text-2xl lg:text-4xl px-6 sm:px-10 lg:px-14 py-4 sm:py-6 lg:py-10 border-2 sm:border-3 lg:border-4 border-black
+                    bg-zinc-900 text-white
+                    shadow-[4px_4px_0_#000] sm:shadow-[6px_6px_0_#000]
+                    transition-all duration-300
+                    hover:bg-red-600 hover:shadow-[0_0_30px_rgba(220,38,38,.8)]
+                    hover:-translate-y-2
+                  `}
+                >
+                  {name}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="overflow-hidden mb-8 sm:mb-12 lg:mb-16">
+            <div 
+              className="scroll-container flex gap-4 sm:gap-6 lg:gap-10 w-max"
+              style={{ animation: 'moveRight 45s linear infinite' }}
+            >
+              {[...sponsors, ...sponsors].map((name, i) => (
+                <div
+                  key={i}
+                  className={`
+                    starlord text-xl sm:text-2xl lg:text-4xl px-6 sm:px-10 lg:px-14 py-4 sm:py-6 lg:py-10 border-2 sm:border-3 lg:border-4 border-black
+                    bg-zinc-900 text-white
+                    shadow-[4px_4px_0_#000] sm:shadow-[6px_6px_0_#000]
+                    transition-all duration-300
+                    hover:bg-blue-600 hover:shadow-[0_0_30px_rgba(37,99,235,.8)]
+                    hover:-translate-y-2
+                  `}
+                >
+                  {name}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="text-center mt-8 sm:mt-12 lg:mt-16">
+            <button
+              onClick={() => window.location.href = '/sponsors'}
+              className="event-btn starlord text-xl sm:text-2xl lg:text-3xl px-8 sm:px-12 lg:px-16 py-4 sm:py-5 lg:py-6 bg-red-600 text-white border-3 sm:border-4 border-black uppercase shadow-[6px_6px_0_#000] sm:shadow-[8px_8px_0_#000] lg:shadow-[10px_10px_0_#000] hover:bg-red-700 hover:shadow-[0_0_30px_rgba(220,38,38,.8)] hover:-translate-y-1 transition-all duration-300"
+            >
+              ALL SPONSORS →
+            </button>
+          </div>
+
+        </div>
+      </section>
+    </>
+  );
 }

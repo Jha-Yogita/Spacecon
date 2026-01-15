@@ -4,13 +4,16 @@ import SponsorsSection from '@/components/SponsorsSection';
 import AboutSection from '@/components/AboutSection';
 // import TeamSection from '@/components/TeamSection';
 import ContactSection from '@/components/ContactSection';
-
+import Loader from "@/components/Loader";
 
 import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
     <div className="min-h-screen">
+      <Loader>
+
+     
       <HeroSection />
       <EventsSection />
       <SponsorsSection />
@@ -19,6 +22,7 @@ export default function Home() {
       <ContactSection />
       
       <Footer />
+       </Loader>
       
     
     </div>

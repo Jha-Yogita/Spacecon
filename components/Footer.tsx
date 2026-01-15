@@ -5,21 +5,21 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-black border-t border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <span className="text-gray-400 text-sm font-medium">
-            © SpaceCon {currentYear}
+    <footer className="relative bg-black border-t-4 border-red-600">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+          <span className="mono text-gray-400 text-xs sm:text-sm font-bold">
+            © SpaceCon 2026
           </span>
-          
+
           <div className="hidden sm:block w-px h-4 bg-white/20" />
-          
-          <Link 
+
+          <a 
             href="/privacy-policy"
-            className="text-gray-400 hover:text-white transition-colors duration-300 text-sm font-medium"
+            className="mono text-gray-400 hover:text-red-500 transition-colors duration-300 text-xs sm:text-sm font-bold"
           >
             Privacy Policy
-          </Link>
+          </a>
         </div>
       </div>
     </footer>

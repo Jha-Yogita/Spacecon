@@ -1,169 +1,197 @@
 'use client';
 
-import { useState } from "react";
-import dynamic from "next/dynamic";
+import { useState, memo } from 'react';
+import dynamic from 'next/dynamic';
 
 const Spline = dynamic(
-  () => import("@splinetool/react-spline").then(m => m.default),
+  () => import('@splinetool/react-spline').then(m => m.default),
   { ssr: false }
 );
 
+const MemoizedSpline = memo(({ scene }: { scene: string }) => (
+  <Spline scene={scene} />
+));
+
+MemoizedSpline.displayName = 'MemoizedSpline';
+
 export default function ContactSection() {
+  const [active, setActive] = useState<'email' | 'team'>('email');
   const [parallax, setParallax] = useState({ x: 0, y: 0 });
 
   const contacts = [
-    { name: "Nikhil Kumar", phone: "88103 13021", role: "Coordinator" },
-    { name: "Avantika Ambra", phone: "99115 61128", role: "Coordinator" },
-    { name: "Omkar Ahuja", phone: "97111 06833", role: "Coordinator" },
+    { name: 'Nikhil Kumar', role: 'Coordinator', phone: '88103 13021' },
+    { name: 'Avantika Ambra', role: 'Coordinator', phone: '99115 61128' },
+    { name: 'Omkar Ahuja', role: 'Coordinator', phone: '97111 06833' },
   ];
 
-  // ⭐ deterministic “random” stars — SAFE for hydration
-  const STARS = Array.from({ length: 38 }).map((_, i) => ({
-    left: (i * 97) % 100,
-    delay: (i * 2.37) % 6,
-    duration: 10 + ((i * 1.3) % 8),
-  }));
-
   return (
-    <section
-      id="contact"
-      className="relative min-h-screen text-white pt-28 px-6 md:px-10 overflow-hidden bg-black"
-    >
-
-      {/* ⭐ STARS */}
-      <div className="stars-section">
-        {STARS.map((star, i) => (
-          <div
-            key={i}
-            className="star"
-            style={{
-              left: `${star.left}%`,
-              animationDelay: `${star.delay}s`,
-              animationDuration: `${star.duration}s`,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* 🤖 ROBOT */}
-      <div
-        className="absolute left-6 xl:left-10 top-[42%] -translate-y-1/2 hidden xl:flex items-center justify-center z-10"
-        style={{ width: 700, height: 700 }}
-      >
-        <div
-          className="robot-wrapper relative rounded-full w-[520px] h-[520px] overflow-hidden border border-white/10 bg-black/40"
-          onMouseMove={(e) => {
-            const rect = e.currentTarget.getBoundingClientRect();
-            const x = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
-            const y = ((e.clientY - rect.top) / rect.height - 0.5) * 10;
-            setParallax({ x, y });
-          }}
-          onMouseLeave={() => setParallax({ x: 0, y: 0 })}
-        >
-          <div
-            style={{
-              width: "760px",
-              height: "760px",
-              transform: `translate(${parallax.x * -0.6}px, ${parallax.y * -0.6}px)`
-            }}
-            className="opacity-90"
-          >
-            <Spline scene="https://prod.spline.design/loA19qvPmjmZx4ZR/scene.splinecode" />
-          </div>
-        </div>
-
-        <div className="absolute w-[600px] h-[600px] rounded-full border border-white/15 animate-slow-spin pointer-events-none" />
-      </div>
-
-      {/* CONTENT */}
-      <div className="relative max-w-6xl mx-auto z-20 xl:pl-[430px] xl:pt-6">
-        <div className="text-center mb-16">
-          <h1 className="text-6xl md:text-7xl font-black tracking-tight">CONTACT US</h1>
-          <p className="mt-4 text-gray-300 text-lg">Get in touch with our team</p>
-        </div>
-
-        {/* EMAIL */}
-        <div className="max-w-2xl mx-auto mb-16">
-          <div className="border border-purple-500/20 bg-white/5 rounded-3xl p-10 backdrop-blur-xl transition-all duration-300 hover:bg-gradient-to-br hover:from-purple-900/20 hover:to-pink-900/10 hover:border-purple-500/40 hover:shadow-xl hover:shadow-purple-500/10">
-            <h2 className="text-gray-400 mb-3">Email</h2>
-
-            <a
-              href="mailto:spacecon@nsut.ac.in"
-              className="text-3xl font-bold text-white hover:text-purple-300 transition-colors duration-300"
-            >
-              spacecon@nsut.ac.in
-            </a>
-
-            <p className="text-gray-400 mt-3">
-              For general queries and information
-            </p>
-          </div>
-        </div>
-
-        {/* CONTACTS */}
-        <div className="max-w-3xl mx-auto mb-24">
-          <h2 className="text-2xl font-bold text-center mb-8">Core Team</h2>
-
-          <div className="space-y-5">
-            {contacts.map((c, i) => (
-              <div
-                key={i}
-                className="border border-purple-500/20 bg-white/5 rounded-2xl p-7 backdrop-blur-xl transition-all duration-300 hover:bg-gradient-to-br hover:from-purple-900/20 hover:to-pink-900/10 hover:border-purple-500/40 hover:shadow-lg hover:shadow-purple-500/10"
-              >
-                <div className="flex items-center justify-between flex-wrap gap-4">
-                  <div>
-                    <h3 className="text-xl font-semibold text-white group-hover:text-purple-300 transition-colors duration-300">
-                      {c.name}
-                    </h3>
-                    <p className="text-gray-300">{c.role}</p>
-                  </div>
-
-                  <span className="text-2xl font-mono text-gray-300">
-                    {c.phone}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
+    <>
       <style jsx global>{`
-        @keyframes slow-spin {
-          from { transform: rotate(0deg);}
-          to { transform: rotate(360deg);}
-        }
-        .animate-slow-spin { animation: slow-spin 45s linear infinite; }
+        @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@600;700;800;900&display=swap');
 
-        @keyframes star-fall {
-          0%   { transform: translateY(-15vh); opacity:.95; }
-          100% { transform: translateY(105vh); opacity:.55; }
-        }
+        .comic { font-family: 'Bangers', cursive; letter-spacing: .06em; }
+        .mono { font-family: 'Montserrat', sans-serif; }
 
-        .stars-section {
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          z-index: 0;
-          overflow: hidden;
+        @keyframes orbit {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
 
-        .star {
-          position: absolute;
-          top: -10vh;
-          width: 4px;
-          height: 4px;
-          border-radius: 50%;
-          background: rgba(255,255,255,.9);
-          box-shadow: 0 0 10px rgba(255,255,255,.7);
-          animation: star-fall linear infinite;
+        @keyframes stars {
+          from { background-position: 0 0; }
+          to { background-position: 0 1000px; }
         }
 
-        .robot-wrapper {
-          mask-image: radial-gradient(circle at center, white 76%, transparent 100%);
-          -webkit-mask-image: radial-gradient(circle at center, white 76%, transparent 100%);
+        @keyframes float {
+          0%,100% { transform: translateY(0); }
+          50% { transform: translateY(-18px); }
+        }
+
+        @keyframes glow {
+          0%,100% { box-shadow: 0 0 40px rgba(220,38,38,.35); }
+          50% { box-shadow: 0 0 90px rgba(220,38,38,.6); }
+        }
+
+        #spline-watermark,
+        [id*="spline"],
+        [class*="spline-watermark"],
+        a[href*="spline.design"] {
+          display: none !important;
         }
       `}</style>
-    </section>
+
+      <section
+        id="contact"
+        className="relative min-h-screen bg-black text-white py-24 px-4 overflow-hidden"
+      >
+        <div
+          className="absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)',
+            backgroundSize: '6px 6px',
+            animation: 'stars 140s linear infinite'
+          }}
+        />
+
+        <div className="relative max-w-6xl mx-auto text-center mb-20">
+          <h1
+            className="comic uppercase"
+            style={{
+              fontSize: 'clamp(3rem, 12vw, 9rem)',
+              WebkitTextStroke: 'clamp(2px, 0.5vw, 4px) #dc2626',
+              textShadow: '0 4px 0 #dc2626, 0 8px 0 #000'
+            }}
+          >
+            CONTACT US
+          </h1>
+        </div>
+
+        <div className="relative max-w-7xl mx-auto grid lg:grid-cols-[500px_1fr] gap-16 items-center">
+
+          {/* Spline */}
+          <div
+            className="hidden lg:flex justify-center"
+            style={{ animation: 'float 6s ease-in-out infinite' }}
+            onMouseMove={(e) => {
+              const r = e.currentTarget.getBoundingClientRect();
+              setParallax({
+                x: ((e.clientX - r.left) / r.width - 0.5) * 12,
+                y: ((e.clientY - r.top) / r.height - 0.5) * 12
+              });
+            }}
+            onMouseLeave={() => setParallax({ x: 0, y: 0 })}
+          >
+            <div
+              className="relative w-[500px] h-[500px] rounded-full bg-zinc-900 border-4 border-black overflow-hidden"
+              style={{ animation: 'glow 4s ease-in-out infinite' }}
+            >
+              <div
+                style={{
+                  width: '600px',
+                  height: '600px',
+                  transform: `translate(${-parallax.x}px, ${-parallax.y}px)`,
+                  position: 'absolute',
+                  left: '55%',
+                  top: '50%',
+                  marginLeft: '-300px',
+                  marginTop: '-300px'
+                }}
+              >
+                <MemoizedSpline scene="https://prod.spline.design/loA19qvPmjmZx4ZR/scene.splinecode" />
+              </div>
+            </div>
+          </div>
+
+          {/* Contact Card */}
+          <div className="border-4 border-red-600 bg-zinc-950 shadow-[12px_12px_0_#000]">
+            <div className="grid md:grid-cols-[240px_1fr] min-h-[480px]">
+
+              <div className="border-r-4 border-black bg-zinc-900 p-6 space-y-6">
+                <button
+                  onClick={() => setActive('email')}
+                  className={`w-full px-5 py-4 border-4 border-black comic text-xl shadow-[5px_5px_0_#000] ${
+                    active === 'email' ? 'bg-red-600' : 'bg-zinc-800 hover:bg-zinc-700'
+                  }`}
+                >
+                  EMAIL
+                </button>
+
+                <button
+                  onClick={() => setActive('team')}
+                  className={`w-full px-5 py-4 border-4 border-black comic text-xl shadow-[5px_5px_0_#000] ${
+                    active === 'team' ? 'bg-red-600' : 'bg-zinc-800 hover:bg-zinc-700'
+                  }`}
+                >
+                  CORE TEAM
+                </button>
+              </div>
+
+              <div className="p-10 flex items-center justify-center bg-gradient-to-br from-zinc-950 via-zinc-900 to-black">
+
+                {active === 'email' && (
+                  <div className="text-center">
+                    <div className="comic text-4xl text-red-500 mb-6">
+                      PRIMARY CHANNEL
+                    </div>
+
+                    <div className="border-4 border-red-600 bg-black p-8 shadow-[6px_6px_0_#000]">
+                      <a
+                        href="mailto:spacecon@nsut.ac.in"
+                        className="comic text-3xl text-white hover:text-red-400 transition-colors break-all"
+                      >
+                        spacecon@nsut.ac.in
+                      </a>
+                    </div>
+                  </div>
+                )}
+
+                {active === 'team' && (
+                  <div className="w-full">
+                    <div className="comic text-4xl text-red-500 mb-6">
+                      CORE OPERATORS
+                    </div>
+
+                    <div className="space-y-6">
+                      {contacts.map((c, i) => (
+                        <div
+                          key={i}
+                          className="border-4 border-black bg-zinc-800 p-6 shadow-[5px_5px_0_#000]"
+                        >
+                          <div className="comic text-2xl">{c.name}</div>
+                          <div className="mono text-red-400">{c.role}</div>
+                          <div className="mono mt-1">{c.phone}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </>
   );
 }
