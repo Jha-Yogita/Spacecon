@@ -6,8 +6,32 @@ export default function Loader({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [showLoader, setShowLoader] = useState(false);
   
   useEffect(() => {
+    // Wait for fonts and then show loader
+    const initLoader = async () => {
+      // Wait for fonts to be available
+      if (document.fonts) {
+        await document.fonts.load("700 72px 'Bangers'");
+        await document.fonts.load("700 48px 'Bebas Neue'");
+        await document.fonts.ready;
+      }
+      
+      // Small delay to ensure rendering is complete
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setShowLoader(true);
+        });
+      });
+    };
+
+    initLoader();
+  }, []);
+
+  useEffect(() => {
+    if (!showLoader) return;
+
     const duration = 4500;
     const startTime = Date.now();
 
@@ -30,15 +54,20 @@ export default function Loader({ children }: { children: React.ReactNode }) {
       clearTimeout(timer);
       clearInterval(progressInterval);
     };
-  }, []);
+  }, [showLoader]);
 
   return (
     <>
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Bebas+Neue&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Bebas+Neue&display=block');
 
-        .comic-font { font-family: 'Bangers', cursive; letter-spacing: 0.05em; }
-        .title-font { font-family: 'Bebas Neue', sans-serif; }
+        .comic-font { 
+          font-family: 'Bangers', cursive; 
+          letter-spacing: 0.05em;
+        }
+        .title-font { 
+          font-family: 'Bebas Neue', sans-serif;
+        }
 
         @keyframes ring-rotate {
           0% { transform: rotate(-90deg); }
@@ -61,9 +90,10 @@ export default function Loader({ children }: { children: React.ReactNode }) {
 
       {loading && (
         <div 
-          className={`fixed inset-0 z-50 overflow-hidden transition-opacity duration-800 ${fadeOut ? 'opacity-0' : 'opacity-100'}`}
+          className={`fixed inset-0 z-50 overflow-hidden ${fadeOut ? 'opacity-0' : 'opacity-100'} ${showLoader ? '' : 'invisible'}`}
           style={{ 
             background: 'linear-gradient(180deg, #000000 0%, #0A0A0A 50%, #000000 100%)',
+            transition: fadeOut ? 'opacity 800ms' : 'none'
           }}
         >
           <div className="hidden md:block absolute top-8 left-8">

@@ -154,10 +154,11 @@ export default function ContactSection() {
                       PRIMARY CHANNEL
                     </div>
 
-                    <div className="border-4 border-red-600 bg-black p-8 shadow-[6px_6px_0_#000]">
+                    <div className="border-4 border-red-600 bg-black p-4 sm:p-8 shadow-[6px_6px_0_#000]">
                       <a
                         href="mailto:spacecon@nsut.ac.in"
-                        className="comic text-3xl text-white hover:text-red-400 transition-colors break-all"
+                        className="comic text-xl sm:text-2xl md:text-3xl text-white hover:text-red-400 transition-colors break-words inline-block max-w-full"
+                        style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}
                       >
                         spacecon@nsut.ac.in
                       </a>

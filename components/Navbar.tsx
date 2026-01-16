@@ -9,7 +9,7 @@ export default function MultiverseNavbar() {
   const [active, setActive] = useState('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
-const pathname = usePathname();
+  const pathname = usePathname();
 
 
   useEffect(() => {
@@ -49,18 +49,17 @@ const pathname = usePathname();
     setActive(id);
     setIsMenuOpen(false);
 
-   if (id === 'home') {
-  setActive('home');
-  setIsMenuOpen(false);
+    if (id === 'home') {
+      setActive('home');
+      setIsMenuOpen(false);
 
-  if (pathname !== '/') {
-    router.push('/');
-  } else {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-  return;
-}
-
+      if (pathname !== '/') {
+        router.push('/');
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      return;
+    }
 
     const element = document.getElementById(id);
     if (element) {
@@ -117,11 +116,6 @@ const pathname = usePathname();
           }
         }
 
-        @keyframes fractureExpand {
-          0% { clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%); }
-          100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
-        }
-
         .energy-line {
           animation: energyPulse 2s ease-in-out infinite;
         }
@@ -141,15 +135,6 @@ const pathname = usePathname();
           background: linear-gradient(90deg, transparent 0%, rgba(220, 38, 38, 0.1) 50%, transparent 100%);
           animation: glitchSubtle 0.3s ease-in-out;
           pointer-events: none;
-        }
-
-        .fracture-border {
-          clip-path: polygon(
-            0 0, 5px 0, 5px 2px, calc(100% - 5px) 2px, calc(100% - 5px) 0, 100% 0,
-            100% 5px, calc(100% - 2px) 5px, calc(100% - 2px) calc(100% - 5px), 100% calc(100% - 5px),
-            100% 100%, calc(100% - 5px) 100%, calc(100% - 5px) calc(100% - 2px), 5px calc(100% - 2px),
-            5px 100%, 0 100%, 0 calc(100% - 5px), 2px calc(100% - 5px), 2px 5px, 0 5px
-          );
         }
 
         .nav-blur {
@@ -185,41 +170,43 @@ const pathname = usePathname();
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 relative">
           <div className="flex items-center justify-between h-16 sm:h-20 lg:h-24">
             
-            <button
-              onClick={() => scrollToSection('home')}
-              className="relative group glitch-hover"
-            >
-              <div className="absolute -inset-3 sm:-inset-6 bg-red-600/0 group-hover:bg-red-600/10 transition-all duration-500" 
-                   style={{ clipPath: 'polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%)' }} />
-              
-              <div className="relative flex items-center gap-2 sm:gap-3 lg:gap-4">
-                <div className="hidden sm:flex flex-col gap-1">
-                  <div className="w-0.5 sm:w-1 h-4 sm:h-6 lg:h-8 bg-red-600 group-hover:h-6 sm:group-hover:h-8 lg:group-hover:h-10 transition-all duration-300" />
-                  <div className="w-0.5 sm:w-1 h-2 sm:h-3 lg:h-4 bg-red-600/60 group-hover:h-3 sm:group-hover:h-4 lg:group-hover:h-6 transition-all duration-300" />
-                  <div className="w-0.5 sm:w-1 h-1 sm:h-1.5 lg:h-2 bg-red-600/30 group-hover:h-1.5 sm:group-hover:h-2 lg:group-hover:h-3 transition-all duration-300" />
-                </div>
+            <div className="sm:flex-1">
+              <button
+                onClick={() => scrollToSection('home')}
+                className="relative group glitch-hover hidden sm:block"
+              >
+                <div className="absolute -inset-3 sm:-inset-6 bg-red-600/0 group-hover:bg-red-600/10 transition-all duration-500" 
+                     style={{ clipPath: 'polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%)' }} />
                 
-                <h1 className="logo-font text-2xl sm:text-4xl lg:text-5xl xl:text-6xl tracking-tight relative glitch-text">
-                  <span className="text-white">SPACE</span>
-                  <span className="text-red-600">CON</span>
+                <div className="relative flex items-center gap-2 sm:gap-3 lg:gap-4">
+                  <div className="hidden sm:flex flex-col gap-1">
+                    <div className="w-0.5 sm:w-1 h-4 sm:h-6 lg:h-8 bg-red-600 group-hover:h-6 sm:group-hover:h-8 lg:group-hover:h-10 transition-all duration-300" />
+                    <div className="w-0.5 sm:w-1 h-2 sm:h-3 lg:h-4 bg-red-600/60 group-hover:h-3 sm:group-hover:h-4 lg:group-hover:h-6 transition-all duration-300" />
+                    <div className="w-0.5 sm:w-1 h-1 sm:h-1.5 lg:h-2 bg-red-600/30 group-hover:h-1.5 sm:group-hover:h-2 lg:group-hover:h-3 transition-all duration-300" />
+                  </div>
                   
-                  <div className="absolute -bottom-0.5 sm:-bottom-1 left-0 right-0 h-[1px] sm:h-[2px] bg-gradient-to-r from-red-600 via-white to-red-600 transform group-hover:scale-x-105 transition-transform duration-300" />
-                </h1>
-                
-                <div className="hidden sm:flex flex-col gap-1">
-                  <div className="w-0.5 sm:w-1 h-1 sm:h-1.5 lg:h-2 bg-red-600/30 group-hover:h-1.5 sm:group-hover:h-2 lg:group-hover:h-3 transition-all duration-300" />
-                  <div className="w-0.5 sm:w-1 h-2 sm:h-3 lg:h-4 bg-red-600/60 group-hover:h-3 sm:group-hover:h-4 lg:group-hover:h-6 transition-all duration-300" />
-                  <div className="w-0.5 sm:w-1 h-4 sm:h-6 lg:h-8 bg-red-600 group-hover:h-6 sm:group-hover:h-8 lg:group-hover:h-10 transition-all duration-300" />
+                  <h1 className="logo-font text-2xl sm:text-4xl lg:text-5xl xl:text-6xl tracking-tight relative glitch-text">
+                    <span className="text-white">SPACE</span>
+                    <span className="text-red-600">CON</span>
+                    
+                    <div className="absolute -bottom-0.5 sm:-bottom-1 left-0 right-0 h-[1px] sm:h-[2px] bg-gradient-to-r from-red-600 via-white to-red-600 transform group-hover:scale-x-105 transition-transform duration-300" />
+                  </h1>
+                  
+                  <div className="hidden sm:flex flex-col gap-1">
+                    <div className="w-0.5 sm:w-1 h-1 sm:h-1.5 lg:h-2 bg-red-600/30 group-hover:h-1.5 sm:group-hover:h-2 lg:group-hover:h-3 transition-all duration-300" />
+                    <div className="w-0.5 sm:w-1 h-2 sm:h-3 lg:h-4 bg-red-600/60 group-hover:h-3 sm:group-hover:h-4 lg:group-hover:h-6 transition-all duration-300" />
+                    <div className="w-0.5 sm:w-1 h-4 sm:h-6 lg:h-8 bg-red-600 group-hover:h-6 sm:group-hover:h-8 lg:group-hover:h-10 transition-all duration-300" />
+                  </div>
                 </div>
-              </div>
 
-              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap overflow-hidden max-w-0 group-hover:max-w-xs transition-all duration-700">
-                <span className="nav-font text-[8px] sm:text-[10px] text-red-500 tracking-[0.3em] sm:tracking-[0.4em] uppercase">MULTIVERSE MENACE</span>
-              </div>
-            </button>
+                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap overflow-hidden max-w-0 group-hover:max-w-xs transition-all duration-700">
+                  <span className="nav-font text-[8px] sm:text-[10px] text-red-500 tracking-[0.3em] sm:tracking-[0.4em] uppercase">MULTIVERSE MENACE</span>
+                </div>
+              </button>
+            </div>
 
             <div className="hidden lg:flex items-center gap-6 xl:gap-12">
-              {navItems.map((item, idx) => (
+              {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
@@ -276,22 +263,50 @@ const pathname = usePathname();
               </button>
             </div>
 
+            {/* Mobile menu button (small screens only) */}
+            <div className="flex-1 flex justify-end sm:hidden">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="relative w-12 h-12 group"
+              >
+                <div className="absolute inset-0 bg-black border-2 border-red-600/50 group-hover:border-red-600 transition-colors duration-300" />
+                
+                <div className="relative w-full h-full flex items-center justify-center">
+                  <div className="w-6 h-6 relative">
+                    <span className={`absolute left-0 h-[2px] bg-white transition-all duration-500 ${
+                      isMenuOpen ? 'w-6 top-1/2 -translate-y-1/2 rotate-45' : 'w-6 top-1'
+                    }`} />
+                    <span className={`absolute left-0 w-6 h-[2px] top-1/2 -translate-y-1/2 bg-white transition-all duration-500 ${
+                      isMenuOpen ? 'opacity-0 scale-0' : 'opacity-100'
+                    }`} />
+                    <span className={`absolute left-0 h-[2px] bg-white transition-all duration-500 ${
+                      isMenuOpen ? 'w-6 top-1/2 -translate-y-1/2 -rotate-45' : 'w-6 bottom-1'
+                    }`} />
+                  </div>
+                </div>
+
+                <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-red-600" />
+                <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-red-600" />
+              </button>
+            </div>
+
+            {/* Tablet menu button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden relative w-12 h-12 sm:w-14 sm:h-14 group"
+              className="hidden sm:block lg:hidden relative w-14 h-14 group"
             >
               <div className="absolute inset-0 bg-black border-2 border-red-600/50 group-hover:border-red-600 transition-colors duration-300" />
               
               <div className="relative w-full h-full flex items-center justify-center">
-                <div className="w-6 h-6 sm:w-7 sm:h-7 relative">
+                <div className="w-7 h-7 relative">
                   <span className={`absolute left-0 h-[2px] bg-white transition-all duration-500 ${
-                    isMenuOpen ? 'w-6 sm:w-7 top-1/2 -translate-y-1/2 rotate-45' : 'w-6 sm:w-7 top-1 sm:top-1.5'
+                    isMenuOpen ? 'w-7 top-1/2 -translate-y-1/2 rotate-45' : 'w-7 top-1.5'
                   }`} />
-                  <span className={`absolute left-0 w-6 sm:w-7 h-[2px] top-1/2 -translate-y-1/2 bg-white transition-all duration-500 ${
+                  <span className={`absolute left-0 w-7 h-[2px] top-1/2 -translate-y-1/2 bg-white transition-all duration-500 ${
                     isMenuOpen ? 'opacity-0 scale-0' : 'opacity-100'
                   }`} />
                   <span className={`absolute left-0 h-[2px] bg-white transition-all duration-500 ${
-                    isMenuOpen ? 'w-6 sm:w-7 top-1/2 -translate-y-1/2 -rotate-45' : 'w-6 sm:w-7 bottom-1 sm:bottom-1.5'
+                    isMenuOpen ? 'w-7 top-1/2 -translate-y-1/2 -rotate-45' : 'w-7 bottom-1.5'
                   }`} />
                 </div>
               </div>
@@ -301,6 +316,7 @@ const pathname = usePathname();
             </button>
           </div>
 
+          {/* Mobile menu dropdown */}
           <div className={`lg:hidden overflow-hidden transition-all duration-700 ${
             isMenuOpen ? 'max-h-[600px] opacity-100 pb-6 sm:pb-8' : 'max-h-0 opacity-0'
           }`}>
