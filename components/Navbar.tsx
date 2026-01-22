@@ -40,7 +40,7 @@ export default function MultiverseNavbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (id) => {
+  const scrollToSection = (id:string) => {
     setActive(id);
     setIsMenuOpen(false);
 
