@@ -1,8 +1,22 @@
 'use client';
 
 import Tesseract from '@/components/Tesseract';
+import { useState, useEffect } from 'react';
 
 export default function AboutSection() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <>
       <style jsx global>{`
@@ -25,6 +39,18 @@ export default function AboutSection() {
         @keyframes comic-spin {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
+        }
+
+        .disable-interaction {
+          pointer-events: none !important;
+          user-select: none !important;
+          touch-action: none !important;
+        }
+
+        .disable-interaction * {
+          pointer-events: none !important;
+          user-select: none !important;
+          touch-action: none !important;
         }
       `}</style>
 
@@ -76,13 +102,30 @@ export default function AboutSection() {
                     <span className="comic-title text-white text-xs sm:text-sm md:text-base">THE CORE</span>
                   </div>
 
-                  <p className="body-font text-sm sm:text-base md:text-lg leading-relaxed text-gray-200">
-                    <span className="comic-title text-red-500 text-base sm:text-lg md:text-xl">
-                      SPACECON 2026
-                    </span>{' '}
-                    is powered by innovation, creativity, and collaboration —
-                    uniting minds to shape the future of space technology.
-                  </p>
+                  <div className="space-y-3 sm:space-y-3.5 body-font text-sm sm:text-base md:text-lg leading-snug sm:leading-normal text-gray-200">
+
+  <p>
+    At{' '}
+    <span className="comic-title text-red-500 text-base sm:text-lg md:text-xl mx-1">
+      SPACECON 2026
+    </span>
+    , our diverse range of events unite competition, creativity, and exploration
+    through engaging activities.
+  </p>
+
+  <p>
+    From solving problems under pressure and designing space missions to quizzes,
+    graph challenges, and astro-themed adventures, participants dive deep into
+    space science using both analytical thinking and imagination.
+  </p>
+
+  <p>
+    Creativity takes center stage through photography and film screenings,
+    offering a unique artistic lens into the mysteries of the universe.
+  </p>
+
+</div>
+
                 </div>
               </div>
 
@@ -93,11 +136,22 @@ export default function AboutSection() {
                     <span className="comic-title text-white text-xs sm:text-sm md:text-base">THE MISSION</span>
                   </div>
 
-                  <p className="body-font text-xs sm:text-sm md:text-base leading-relaxed text-gray-300">
-                    From hackathons to ideathons, SpaceCon empowers students to
-                    turn bold ideas into real-world impact — advancing STEM and
-                    space exploration.
-                  </p>
+                 <div className="space-y-3 sm:space-y-3.5 body-font text-xs sm:text-sm md:text-base leading-snug sm:leading-normal text-gray-300">
+
+  <p>
+    Throughout these experiences, participants build critical thinking skills,
+    teamwork, confidence, and gain exposure to real-world applications of space
+    science and technology.
+  </p>
+
+  <p>
+    SpaceCon is more than just a conclave , it’s a launchpad. By blending science
+    with imagination, it fosters curiosity and collaboration, shaping minds
+    ready to innovate.
+  </p>
+
+</div>
+
                 </div>
               </div>
             </div>
@@ -112,7 +166,7 @@ export default function AboutSection() {
                   <div className="absolute w-[300px] sm:w-[360px] md:w-[440px] lg:w-[600px] h-[300px] sm:h-[360px] md:h-[440px] lg:h-[600px] rounded-full border border-cyan-300/15" />
                 </div>
 
-                <div className="w-full flex justify-center">
+                <div className={`w-full flex justify-center ${isMobile ? 'disable-interaction' : ''}`}>
                   <Tesseract />
                 </div>
 

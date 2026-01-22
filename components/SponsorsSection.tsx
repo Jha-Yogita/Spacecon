@@ -3,15 +3,39 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 
-
-
-const sponsors = [
-  'SPACEX', 'NASA', 'BLUE ORIGIN', 'GOOGLE', 'MICROSOFT',
-  'NVIDIA', 'ISRO', 'AMAZON', 'META', 'INTEL'
+// Sponsor logos mapping - using your actual sponsors list
+const sponsor2025 = [
+  { name: 'edwise', image: 'edwise.png' },
+  { name: 'eazydiner', image: 'eazydiner.png' },
+  { name: 'myequation', image: 'myequation.png' },
+  { name: 'toponepercent', image: 'toponepercent.png' },
+  { name: 'interviewbuddy', image: 'interviewbuddy.png' },
+  { name: 'pinerprinters', image: 'pineprinters.png' },
+  { name: 'smartandhandsome', image: 'smartandhandsome.png' },
+  { name: 'whizzkin', image: 'whizzkin.png' },
+  { name: 'easemytrip', image: 'easemytrip.png' },
+  { name: 'stockgrow', image: 'stockgrow.png' },
+  { name: 'theaffordable', image: 'theaffordable.png' },
+  { name: 'truscholar', image: 'truscholar.png' },
+  { name: 'grabon', image: 'grabon.png' },
+  { name: 'bookymmentor', image: 'bookmymentor.png' },
+  { name: 'hackquest', image: 'hackquest.png' },
+  { name: 'unstop', image: 'unstop.jpg' },
 ];
+
+// Convert to full image paths
+const sponsors = sponsor2025.map(sponsor => ({
+  name: sponsor.name.toUpperCase(),
+  logo: `/sponsors/2025/${sponsor.image}`
+}));
 
 export default function SponsorsSection() {
   const router = useRouter();
+  
+  // Split sponsors into two rows for better visual distribution
+  const firstRowSponsors = sponsors.slice(0, 8); // First 8 sponsors
+  const secondRowSponsors = sponsors.slice(8); // Remaining sponsors
+
   return (
     <>
       <style jsx global>{`
@@ -37,6 +61,11 @@ export default function SponsorsSection() {
 
         .scroll-container:hover {
           animation-play-state: paused !important;
+        }
+
+        @keyframes fadeInLogo {
+          from { opacity: 0; transform: scale(0.9); }
+          to { opacity: 1; transform: scale(1); }
         }
       `}</style>
 
@@ -79,47 +108,119 @@ export default function SponsorsSection() {
             </h2>
           </div>
 
+          {/* First Row - Left to Right */}
           <div className="overflow-hidden mb-8 sm:mb-12 lg:mb-16">
             <div 
               className="scroll-container flex gap-4 sm:gap-6 lg:gap-10 w-max"
               style={{ animation: 'moveLeft 40s linear infinite' }}
             >
-              {[...sponsors, ...sponsors].map((name, i) => (
+              {[...firstRowSponsors, ...firstRowSponsors].map((sponsor, i) => (
                 <div
-                  key={i}
+                  key={`first-${i}`}
                   className={`
-                    starlord text-xl sm:text-2xl lg:text-4xl px-6 sm:px-10 lg:px-14 py-4 sm:py-6 lg:py-10 border-2 sm:border-3 lg:border-4 border-black
-                    bg-zinc-900 text-white
+                    relative min-w-[150px] sm:min-w-[200px] lg:min-w-[280px] h-[90px] sm:h-[120px] lg:h-[160px] 
+                    border-2 sm:border-3 lg:border-4 border-black
+                    bg-white
                     shadow-[4px_4px_0_#000] sm:shadow-[6px_6px_0_#000]
                     transition-all duration-300
-                    hover:bg-red-600 hover:shadow-[0_0_30px_rgba(220,38,38,.8)]
+                    hover:bg-gray-100
+                    hover:shadow-[0_0_30px_rgba(255,255,255,.8)]
                     hover:-translate-y-2
+                    overflow-hidden
+                    group
                   `}
                 >
-                  {name}
+                  {/* Sponsor Logo - Keep original colors */}
+                  <div className="absolute inset-0 flex items-center justify-center p-3 sm:p-5 lg:p-6">
+                    <img 
+                      src={sponsor.logo} 
+                      alt={sponsor.name}
+                      className="w-full h-full object-contain p-2 sm:p-3 lg:p-4 transition-all duration-300 group-hover:scale-110"
+                      style={{ animation: 'fadeInLogo 0.5s ease-out' }}
+                      onError={(e) => {
+                        // Fallback to text if image fails to load
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        const parent = target.parentElement;
+                        if (parent) {
+                          const textFallback = document.createElement('div');
+                          textFallback.className = 'starlord text-black text-lg sm:text-xl lg:text-2xl text-center px-2';
+                          textFallback.textContent = sponsor.name.replace('_', ' ');
+                          parent.appendChild(textFallback);
+                        }
+                      }}
+                    />
+                  </div>
+                  
+                  {/* Hover overlay effect */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  
+                  {/* Sponsor name on hover */}
+                  <div className="absolute bottom-0 left-0 right-0 bg-black/90 text-white text-xs sm:text-sm py-2 px-2 text-center transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    <span className="mono font-bold tracking-wide">{sponsor.name.replace('_', ' ')}</span>
+                  </div>
+                  
+                  {/* White glow effect on hover */}
+                  <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-all duration-300" />
                 </div>
               ))}
             </div>
           </div>
 
+          {/* Second Row - Right to Left */}
           <div className="overflow-hidden mb-8 sm:mb-12 lg:mb-16">
             <div 
               className="scroll-container flex gap-4 sm:gap-6 lg:gap-10 w-max"
               style={{ animation: 'moveRight 45s linear infinite' }}
             >
-              {[...sponsors, ...sponsors].map((name, i) => (
+              {[...secondRowSponsors, ...secondRowSponsors].map((sponsor, i) => (
                 <div
-                  key={i}
+                  key={`second-${i}`}
                   className={`
-                    starlord text-xl sm:text-2xl lg:text-4xl px-6 sm:px-10 lg:px-14 py-4 sm:py-6 lg:py-10 border-2 sm:border-3 lg:border-4 border-black
-                    bg-zinc-900 text-white
+                    relative min-w-[150px] sm:min-w-[200px] lg:min-w-[280px] h-[90px] sm:h-[120px] lg:h-[160px] 
+                    border-2 sm:border-3 lg:border-4 border-black
+                    bg-gray-50
                     shadow-[4px_4px_0_#000] sm:shadow-[6px_6px_0_#000]
                     transition-all duration-300
-                    hover:bg-blue-600 hover:shadow-[0_0_30px_rgba(37,99,235,.8)]
+                    hover:bg-white
+                    hover:shadow-[0_0_30px_rgba(255,255,255,.8)]
                     hover:-translate-y-2
+                    overflow-hidden
+                    group
                   `}
                 >
-                  {name}
+                  {/* Sponsor Logo - Keep original colors */}
+                  <div className="absolute inset-0 flex items-center justify-center p-3 sm:p-5 lg:p-6">
+                    <img 
+                      src={sponsor.logo} 
+                      alt={sponsor.name}
+                      className="w-full h-full object-contain p-2 sm:p-3 lg:p-4 transition-all duration-300 group-hover:scale-110"
+                      style={{ animation: 'fadeInLogo 0.5s ease-out' }}
+                      onError={(e) => {
+                        // Fallback to text if image fails to load
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        const parent = target.parentElement;
+                        if (parent) {
+                          const textFallback = document.createElement('div');
+                          textFallback.className = 'starlord text-black text-lg sm:text-xl lg:text-2xl text-center px-2';
+                          textFallback.textContent = sponsor.name.replace('_', ' ');
+                          parent.appendChild(textFallback);
+                        }
+                      }}
+                    />
+                  </div>
+                  
+                  {/* Hover overlay effect */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  
+                  {/* Sponsor name on hover */}
+                  <div className="absolute bottom-0 left-0 right-0 bg-black/90 text-white text-xs sm:text-sm py-2 px-2 text-center transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    <span className="mono font-bold tracking-wide">{sponsor.name.replace('_', ' ')}</span>
+                  </div>
+                  
+                  {/* Light glow effect on hover */}
+                  <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-all duration-300" />
                 </div>
               ))}
             </div>

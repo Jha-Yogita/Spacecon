@@ -14,7 +14,7 @@ export default function SpaceConHero() {
   useEffect(() => {
     setMounted(true);
 
-    const targetDate = new Date('2026-02-21T00:00:00').getTime();
+    const targetDate = new Date('2026-02-07T00:00:00').getTime();
 
     const updateCountdown = () => {
       const now = new Date().getTime();
@@ -652,7 +652,7 @@ export default function SpaceConHero() {
                   DEFENDER OF WORLDS
                 </div>
                 <div className="text-white text-[10px] text-center mt-1 tracking-widest opacity-80">
-                  SPACECON 2026 • FEB 21-23
+                  SPACECON 2026 • FEB 7-8
                 </div>
               </div>
             </div>
@@ -727,7 +727,7 @@ export default function SpaceConHero() {
                   BLAST TO THE STARS
                 </div>
                 <div className="text-white text-[10px] text-center mt-1 tracking-widest opacity-80">
-                  SPACECON 2026 • FEB 21-23
+                  SPACECON 2026 • FEB 7-8
                 </div>
               </div>
             </div>
@@ -794,7 +794,7 @@ export default function SpaceConHero() {
                   LORD OF THE RINGS
                 </div>
                 <div className="text-white text-[10px] text-center mt-1 tracking-widest opacity-80">
-                  SPACECON 2026 • FEB 21-23
+                  SPACECON 2026 • FEB 7-8
                 </div>
               </div>
             </div>
@@ -870,7 +870,7 @@ export default function SpaceConHero() {
                   JOURNEY TO INFINITY
                 </div>
                 <div className="text-white text-[10px] text-center mt-1 tracking-widest opacity-80">
-                  SPACECON 2026 • FEB 21-23
+                  SPACECON 2026 • FEB 7-8
                 </div>
               </div>
             </div>
@@ -913,7 +913,7 @@ export default function SpaceConHero() {
             <div className="inline-block px-5 sm:px-8 py-1 sm:py-3 bg-black/80 border-2 border-red-600/70 backdrop-blur-sm relative overflow-hidden group hover:border-red-500 transition-all duration-300">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-red-600/10 to-transparent animate-pulse" />
               <div className="nav-font text-3xl sm:text-3xl text-white font-bold tracking-[0.15em] sm:tracking-[0.25em] relative group-hover:text-red-100 transition-colors">
-                21 - 23 FEB, 2026
+                7 - 8 FEB, 2026
               </div>
             </div>
           </div>

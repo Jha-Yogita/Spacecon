@@ -1,16 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
-
 
 export default function MultiverseNavbar() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const router = useRouter();
-  const pathname = usePathname();
-
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,19 +40,12 @@ export default function MultiverseNavbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (id: string) => {
+  const scrollToSection = (id) => {
     setActive(id);
     setIsMenuOpen(false);
 
     if (id === 'home') {
-      setActive('home');
-      setIsMenuOpen(false);
-
-      if (pathname !== '/') {
-        router.push('/');
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
 
@@ -170,10 +158,41 @@ export default function MultiverseNavbar() {
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 relative">
           <div className="flex items-center justify-between h-16 sm:h-20 lg:h-24">
             
-            <div className="sm:flex-1">
+            {/* Mobile Logo - Simple image without hover effects */}
+            <div className="sm:hidden flex-1 flex items-center">
               <button
                 onClick={() => scrollToSection('home')}
-                className="relative group glitch-hover hidden sm:block"
+                className="relative"
+              >
+                {/* Logo Image Container */}
+                <div className="relative w-14 h-14 flex items-center justify-center">
+                  {/* Logo Image */}
+                  <img 
+                    src="/logo/logo.png" 
+                    alt="SpaceCon Logo"
+                    className="h-full w-full object-contain"
+                    onError={(e) => {
+                      // Fallback to text if image fails to load
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      const parent = target.parentElement;
+                      if (parent) {
+                        const textFallback = document.createElement('div');
+                        textFallback.className = 'logo-font text-red-600 text-lg font-bold uppercase';
+                        textFallback.textContent = 'SC';
+                        parent.appendChild(textFallback);
+                      }
+                    }}
+                  />
+                </div>
+              </button>
+            </div>
+
+            {/* Desktop Logo */}
+            <div className="hidden sm:block sm:flex-1">
+              <button
+                onClick={() => scrollToSection('home')}
+                className="relative group glitch-hover"
               >
                 <div className="absolute -inset-3 sm:-inset-6 bg-red-600/0 group-hover:bg-red-600/10 transition-all duration-500" 
                      style={{ clipPath: 'polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%)' }} />
@@ -264,7 +283,7 @@ export default function MultiverseNavbar() {
             </div>
 
             {/* Mobile menu button (small screens only) */}
-            <div className="flex-1 flex justify-end sm:hidden">
+            <div className="flex justify-end sm:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="relative w-12 h-12 group"
