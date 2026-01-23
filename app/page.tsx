@@ -56,31 +56,44 @@ export default function Home() {
 
       // Also override addEventListener for error events
       const originalAddEventListener = window.addEventListener;
-      window.addEventListener = function(type: string, listener: any, options?: any) {
-        if (type === 'error') {
-          // Wrap error listener to filter WebGL errors
-          const wrappedListener = function(event: ErrorEvent) {
-            const msg = String(event.message || event.error?.message || '');
-            const suppressPatterns = [
-              'GL_INVALID_VALUE',
-              'GL_INVALID_FRAMEBUFFER_OPERATION',
-              'WebGL: too many errors',
-              'Texture dimensions must all be greater than zero',
-              'Framebuffer is incomplete'
-            ];
-            
-            const shouldSuppress = suppressPatterns.some(pattern => 
-              msg.includes(pattern)
-            );
-            
-            if (!shouldSuppress && typeof listener === 'function') {
-              return listener.call(window, event);
-            }
-          };
-          return originalAddEventListener.call(window, type, wrappedListener, options);
-        }
-        return originalAddEventListener.call(window, type, listener, options);
-      };
+
+window.addEventListener = function (
+  type: string,
+  listener: any,
+  options?: any
+) {
+  if (type === 'error') {
+    const wrappedListener: EventListener = function (event: Event) {
+      const errorEvent = event as ErrorEvent;
+
+      const msg = String(
+        errorEvent?.message ||
+        (errorEvent as any)?.error?.message ||
+        ''
+      );
+
+      const suppressPatterns = [
+        'GL_INVALID_VALUE',
+        'GL_INVALID_FRAMEBUFFER_OPERATION',
+        'WebGL: too many errors',
+        'Texture dimensions must all be greater than zero',
+        'Framebuffer is incomplete'
+      ];
+
+      const shouldSuppress = suppressPatterns.some(pattern =>
+        msg.includes(pattern)
+      );
+
+      if (!shouldSuppress && typeof listener === 'function') {
+        listener.call(window, event);
+      }
+    };
+
+    return originalAddEventListener.call(window, type, wrappedListener, options);
+  }
+
+  return originalAddEventListener.call(window, type, listener, options);
+};
 
       // Restore console on component unmount (optional for debugging)
       return () => {
