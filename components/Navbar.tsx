@@ -148,11 +148,7 @@ export default function MultiverseNavbar() {
         }
       `}</style>
 
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
-        scrolled 
-          ? 'bg-black/98 nav-blur shadow-2xl shadow-red-900/30' 
-          : 'bg-gradient-to-b from-black via-black/95 to-transparent'
-      }`}>
+      <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-700 bg-black shadow-2xl shadow-red-900/20">
         
         <div className="absolute inset-0 geometric-grid opacity-30" />
         
