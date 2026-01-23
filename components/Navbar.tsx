@@ -45,7 +45,18 @@ export default function MultiverseNavbar() {
     setIsMenuOpen(false);
 
     if (id === 'home') {
+      // Check if we're on a subpage
+      if (window.location.pathname !== '/') {
+        window.location.href = '/';
+        return;
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    // For other sections, check if we're on homepage
+    if (window.location.pathname !== '/') {
+      window.location.href = '/#' + id;
       return;
     }
 
