@@ -3,14 +3,16 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: false,
   
-  // Suppress console warnings/errors in production
-  ...(process.env.NODE_ENV === 'production' && {
-    compiler: {
-      removeConsole: {
-        exclude: ['error', 'warn'], // Keep errors and warnings for now, but we'll filter them
-      },
-    },
-  }),
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        // Force single Three.js instance
+        'three': require.resolve('three'),
+      };
+    }
+    return config;
+  },
 };
 
 export default nextConfig;

@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Bangers, Montserrat } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Loader from "@/components/Loader";
 import SilenceConsole from "@/components/SilenceConsole";
-import ConsoleFilter from './console-filter';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -36,53 +34,41 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="bg-black">
-      <head />
       <body
         className={`${inter.variable} ${bangers.variable} ${montserrat.variable} bg-black`}
       >
-        <Script
-          id="suppress-console"
-          strategy="beforeInteractive"
+        <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
-                const originalError = console.error;
-                const originalWarn = console.warn;
-                
+                var origError = console.error;
+                var origWarn = console.warn;
                 console.error = function() {
-                  const args = Array.from(arguments);
-                  const msg = String(args[0] || '');
-                  if (
-                    msg.includes('WebGL') || 
-                    msg.includes('GL_INVALID') || 
-                    msg.includes('Framebuffer') || 
-                    msg.includes('THREE') ||
-                    msg.includes('glTexStorage') || 
-                    msg.includes('glClear') || 
-                    msg.includes('glDraw') ||
-                    msg.includes('Texture dimensions')
-                  ) {
-                    return;
+                  var args = Array.prototype.slice.call(arguments);
+                  var msg = args.join(' ');
+                  if (msg.indexOf('WebGL') === -1 && 
+                      msg.indexOf('GL_INVALID') === -1 && 
+                      msg.indexOf('Framebuffer') === -1 && 
+                      msg.indexOf('THREE') === -1 &&
+                      msg.indexOf('glTexStorage') === -1 && 
+                      msg.indexOf('glClear') === -1 && 
+                      msg.indexOf('glDraw') === -1 &&
+                      msg.indexOf('Texture dimensions') === -1) {
+                    origError.apply(console, args);
                   }
-                  originalError.apply(console, args);
                 };
-                
                 console.warn = function() {
-                  const args = Array.from(arguments);
-                  const msg = String(args[0] || '');
-                  if (
-                    msg.includes('THREE') || 
-                    msg.includes('Multiple instances')
-                  ) {
-                    return;
+                  var args = Array.prototype.slice.call(arguments);
+                  var msg = args.join(' ');
+                  if (msg.indexOf('THREE') === -1 && 
+                      msg.indexOf('Multiple instances') === -1) {
+                    origWarn.apply(console, args);
                   }
-                  originalWarn.apply(console, args);
                 };
               })();
             `,
           }}
         />
-        <ConsoleFilter/>
         <SilenceConsole />
         <Loader>
           <Navbar />

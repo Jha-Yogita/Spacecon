@@ -1,73 +1,32 @@
 'use client';
 
-import { useEffect } from 'react';
-
-// Suppress console errors immediately, before React even mounts
+// Run immediately on module load
 if (typeof window !== 'undefined') {
-  const originalError = console.error;
-  const originalWarn = console.warn;
-
-  console.error = (...args: any[]) => {
-    const message = args[0]?.toString() || '';
-    if (
-      message.includes('WebGL') ||
-      message.includes('GL_INVALID') ||
-      message.includes('Framebuffer') ||
-      message.includes('THREE') ||
-      message.includes('glTexStorage') ||
-      message.includes('glClear') ||
-      message.includes('glDraw')
-    ) {
-      return;
+  const origError = console.error;
+  const origWarn = console.warn;
+  
+  (console as any).error = function(...args: any[]) {
+    const msg = args.join(' ');
+    if (msg.indexOf('WebGL') === -1 && 
+        msg.indexOf('GL_INVALID') === -1 && 
+        msg.indexOf('Framebuffer') === -1 && 
+        msg.indexOf('THREE') === -1 &&
+        msg.indexOf('glTexStorage') === -1 && 
+        msg.indexOf('glClear') === -1 && 
+        msg.indexOf('glDraw') === -1) {
+      origError.apply(console, args);
     }
-    originalError.apply(console, args);
   };
-
-  console.warn = (...args: any[]) => {
-    const message = args[0]?.toString() || '';
-    if (
-      message.includes('THREE') ||
-      message.includes('Multiple instances')
-    ) {
-      return;
+  
+  (console as any).warn = function(...args: any[]) {
+    const msg = args.join(' ');
+    if (msg.indexOf('THREE') === -1 && 
+        msg.indexOf('Multiple instances') === -1) {
+      origWarn.apply(console, args);
     }
-    originalWarn.apply(console, args);
   };
 }
 
 export default function ConsoleFilter() {
-  useEffect(() => {
-    // Additional suppression after mount
-    const originalError = console.error;
-    const originalWarn = console.warn;
-
-    console.error = (...args: any[]) => {
-      const message = args[0]?.toString() || '';
-      if (
-        message.includes('WebGL') ||
-        message.includes('GL_INVALID') ||
-        message.includes('Framebuffer') ||
-        message.includes('THREE') ||
-        message.includes('glTexStorage') ||
-        message.includes('glClear') ||
-        message.includes('glDraw')
-      ) {
-        return;
-      }
-      originalError.apply(console, args);
-    };
-
-    console.warn = (...args: any[]) => {
-      const message = args[0]?.toString() || '';
-      if (
-        message.includes('THREE') ||
-        message.includes('Multiple instances')
-      ) {
-        return;
-      }
-      originalWarn.apply(console, args);
-    };
-  }, []);
-
   return null;
 }
