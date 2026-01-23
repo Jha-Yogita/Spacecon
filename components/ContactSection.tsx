@@ -9,8 +9,9 @@ const Spline = dynamic(
 );
 
 const MemoizedSpline = memo(({ scene }: { scene: string }) => (
-  <Spline scene={scene} />
+  <Spline scene={scene} key="stable-spline" />
 ));
+
 
 MemoizedSpline.displayName = 'MemoizedSpline';
 

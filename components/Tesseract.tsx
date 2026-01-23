@@ -6,16 +6,20 @@ import { useRef } from 'react';
 import * as THREE from 'three';
 
 function GlowingCube() {
-   const cubeRef = useRef<THREE.Mesh>(null!);
+  const cubeRef = useRef<THREE.Mesh>(null!);
+  const materialRef = useRef<THREE.MeshPhysicalMaterial>(null!);
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime();
-    
+
     if (cubeRef.current) {
       cubeRef.current.rotation.x = t * 0.25;
       cubeRef.current.rotation.y = t * 0.35;
-     const material = cubeRef.current.material as THREE.MeshPhysicalMaterial;
-    material.emissiveIntensity = 2.2 + Math.sin(t * 2) * 0.6;
+    }
+
+    if (materialRef.current) {
+      materialRef.current.emissiveIntensity =
+        2.2 + Math.sin(t * 2) * 0.6;
     }
   });
 
@@ -23,6 +27,7 @@ function GlowingCube() {
     <mesh ref={cubeRef}>
       <boxGeometry args={[2.2, 2.2, 2.2]} />
       <meshPhysicalMaterial
+        ref={materialRef}
         color="#7dd3fc"
         emissive="#38bdf8"
         emissiveIntensity={2.5}
@@ -39,11 +44,28 @@ function GlowingCube() {
 
 export default function Tesseract() {
   return (
-    <div className="relative w-[420px] h-[420px]">
-      <Canvas camera={{ position: [0, 0, 6], fov: 45 }}>
+    <div
+      className="relative"
+      style={{ width: 420, height: 420 }}
+    >
+      <Canvas
+        camera={{ position: [0, 0, 6], fov: 45 }}
+        dpr={[1, 1.5]}
+        gl={{ antialias: true, alpha: true }}
+      >
         <ambientLight intensity={0.4} />
-        <pointLight position={[5, 5, 5]} intensity={3} color="#38bdf8" />
-        <pointLight position={[-5, -5, -5]} intensity={2} color="#7dd3fc" />
+
+        <pointLight
+          position={[5, 5, 5]}
+          intensity={3}
+          color="#38bdf8"
+        />
+
+        <pointLight
+          position={[-5, -5, -5]}
+          intensity={2}
+          color="#7dd3fc"
+        />
 
         {/* Energy aura */}
         <mesh>
@@ -57,7 +79,11 @@ export default function Tesseract() {
 
         <GlowingCube />
 
-        <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.7} />
+        <OrbitControls
+          enableZoom={false}
+          autoRotate
+          autoRotateSpeed={0.7}
+        />
       </Canvas>
 
       {/* OUTER GLOW */}

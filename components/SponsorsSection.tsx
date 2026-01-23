@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+
 import { useRouter } from 'next/navigation';
 
 // Sponsor logos mapping - using your actual sponsors list
