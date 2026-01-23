@@ -92,32 +92,41 @@ const eventsData = [
 
 export default function SpaceConEvents() {
   const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
   const router = useRouter();
 
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+ useEffect(() => {
+  setMounted(true);
+
+  const checkMobile = () => {
+    setIsMobile(window.innerWidth < 768);
+  };
+
+  checkMobile();
+  window.addEventListener('resize', checkMobile);
+  return () => window.removeEventListener('resize', checkMobile);
+}, []);
+
 
   const displayedEvents = isMobile ? eventsData.slice(0, 3) : eventsData;
+const makeStars = (count: number, size: number) =>
+  Array.from({ length: count }).map((_, i) => ({
+    id: i,
+    top: Math.random() * 120,
+    left: Math.random() * 100,
+    size,
+    opacity: Math.random() * 0.6 + 0.3,
+    delay: Math.random() * 6,
+    color: Math.random() > 0.85 ? '#f87171' : '#fff'
+    
+  }));
 
-  const makeStars = (count: number, size: number) =>
-    Array.from({ length: count }).map((_, i) => ({
-      id: i,
-      top: Math.random() * 120,
-      left: Math.random() * 100,
-      size,
-      opacity: Math.random() * 0.6 + 0.3,
-      delay: Math.random() * 6
-    }));
 
-  const smallStars = useMemo(() => makeStars(80, 2), []);
-  const mediumStars = useMemo(() => makeStars(50, 3), []);
-  const bigStars = useMemo(() => makeStars(28, 4), []);
+  const smallStars = useMemo(() => mounted ? makeStars(80, 2) : [], [mounted]);
+const mediumStars = useMemo(() => mounted ? makeStars(50, 3) : [], [mounted]);
+const bigStars = useMemo(() => mounted ? makeStars(28, 4) : [], [mounted]);
+
 
   const handleRegister = (eventId: number) => {
     const event = eventsData.find(e => e.id === eventId);
@@ -226,7 +235,8 @@ export default function SpaceConEvents() {
                 left: `${s.left}%`,
                 width: s.size,
                 height: s.size,
-                background: Math.random() > 0.85 ? '#f87171' : '#fff',
+               background: s.color,
+
                 borderRadius: '50%',
                 boxShadow: '0 0 10px rgba(255,255,255,1), 0 0 20px rgba(59,130,246,.8)',
                 animation: `comicPulse 9s ${s.delay}s infinite`
