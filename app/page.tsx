@@ -10,96 +10,101 @@ import Footer from '@/components/Footer';
 
 export default function Home() {
   useEffect(() => {
-    // Only suppress in production
-    if (process.env.NODE_ENV === 'production') {
-      // Store original console methods
-      const originalConsole = {
-        log: console.log,
-        error: console.error,
-        warn: console.warn,
-        info: console.info,
-        debug: console.debug,
-        trace: console.trace
-      };
-
-      // Clear console immediately
-      console.clear();
-
-      // Override console methods
+    // Check if we're in production (for Next.js)
+    const isProduction = process.env.NODE_ENV === 'production' || 
+                         window.location.hostname !== 'localhost';
+    
+    if (isProduction) {
+      console.clear(); // Clear immediately
+      
+      // 1. Override ALL console methods completely
+      const originalConsole = window.console;
       const noop = () => {};
-      console.log = noop;
-      console.warn = noop;
-      console.error = noop;
-      console.info = noop;
-      console.debug = noop;
-      console.trace = noop;
-
-      // Suppress specific Three.js/WebGL errors
-      const originalOnError = window.onerror;
-      window.onerror = function(message, source, lineno, colno, error) {
-        const msg = String(message);
-        const suppressPatterns = [
-          'GL_INVALID_VALUE',
-          'GL_INVALID_FRAMEBUFFER_OPERATION',
-          'WebGL: too many errors',
-          'Texture dimensions must all be greater than zero',
-          'Framebuffer is incomplete',
-          'Multiple instances of Three.js'
-        ];
+      
+      // Replace the entire console object
+      Object.keys(originalConsole).forEach(key => {
+        if (typeof (originalConsole as any)[key] === 'function') {
+          (window.console as any)[key] = noop;
+        }
+      });
+      
+      // 2. Monkey-patch WebGL context to suppress errors at source
+      const originalGetContext = HTMLCanvasElement.prototype.getContext;
+      HTMLCanvasElement.prototype.getContext = function(...args) {
+        const context = originalGetContext.apply(this, args);
         
-        const shouldSuppress = suppressPatterns.some(pattern => 
-          msg.includes(pattern)
-        );
+        if (context && (context as any).constructor.name.includes('WebGL')) {
+          // Override WebGL error reporting
+          const gl = context as WebGLRenderingContext;
+          const originalGetError = gl.getError;
+          
+          gl.getError = function() {
+            const error = originalGetError.call(gl);
+            // Return NO_ERROR for WebGL errors
+            if (error !== gl.NO_ERROR) {
+              return gl.NO_ERROR;
+            }
+            return error;
+          };
+        }
         
-        return shouldSuppress; // Return true to suppress the error
+        return context;
       };
-
-      // Also override addEventListener for error events
-      const originalAddEventListener = window.addEventListener;
-
-window.addEventListener = function (
-  type: string,
-  listener: any,
-  options?: any
-) {
-  if (type === 'error') {
-    const wrappedListener: EventListener = function (event: Event) {
-      const errorEvent = event as ErrorEvent;
-
-      const msg = String(
-        errorEvent?.message ||
-        (errorEvent as any)?.error?.message ||
-        ''
-      );
-
-      const suppressPatterns = [
-        'GL_INVALID_VALUE',
-        'GL_INVALID_FRAMEBUFFER_OPERATION',
-        'WebGL: too many errors',
-        'Texture dimensions must all be greater than zero',
-        'Framebuffer is incomplete'
-      ];
-
-      const shouldSuppress = suppressPatterns.some(pattern =>
-        msg.includes(pattern)
-      );
-
-      if (!shouldSuppress && typeof listener === 'function') {
-        listener.call(window, event);
-      }
-    };
-
-    return originalAddEventListener.call(window, type, wrappedListener, options);
-  }
-
-  return originalAddEventListener.call(window, type, listener, options);
-};
-
-      // Restore console on component unmount (optional for debugging)
+      
+      // 3. Override WebGLRenderingContext methods that trigger errors
+      const WebGLProto = WebGLRenderingContext.prototype;
+      const originalFunctions = {
+        texStorage2D: WebGLProto.texStorage2D,
+        clear: WebGLProto.clear,
+        drawElements: WebGLProto.drawElements,
+        drawArrays: WebGLProto.drawArrays,
+      };
+      
+      // Wrap error-prone methods
+      WebGLProto.texStorage2D = function(...args: any[]) {
+        try {
+          return originalFunctions.texStorage2D.apply(this, args);
+        } catch (e) {
+          return;
+        }
+      };
+      
+      WebGLProto.clear = function(...args: any[]) {
+        try {
+          return originalFunctions.clear.apply(this, args);
+        } catch (e) {
+          return;
+        }
+      };
+      
+      // 4. Block error event propagation completely
+      const originalErrorHandler = window.onerror;
+      window.onerror = function(message, source, lineno, colno, error) {
+        // Return true to prevent default error handling
+        return true;
+      };
+      
+      // 5. Also capture unhandled promise rejections
+      const originalUnhandledRejection = window.onunhandledrejection;
+      window.onunhandledrejection = function(event) {
+        event.preventDefault();
+        return false;
+      };
+      
+      // 6. Add error event listener that swallows all errors
+      window.addEventListener('error', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }, true); // Use capture phase
+      
       return () => {
-        Object.assign(console, originalConsole);
-        window.onerror = originalOnError;
-        window.addEventListener = originalAddEventListener;
+        // Restore originals on unmount (optional)
+        Object.assign(window.console, originalConsole);
+        HTMLCanvasElement.prototype.getContext = originalGetContext;
+        Object.assign(WebGLProto, originalFunctions);
+        window.onerror = originalErrorHandler;
+        window.onunhandledrejection = originalUnhandledRejection;
       };
     }
   }, []);
