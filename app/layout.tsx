@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Loader from "@/components/Loader";
 import SilenceConsole from "@/components/SilenceConsole";
+import ConsoleFilter from './console-filter';
 
 
 
@@ -39,6 +40,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${bangers.variable} ${montserrat.variable}`}
       >
+      <ConsoleFilter/>
         <SilenceConsole />
         <Loader>
           <Navbar />
