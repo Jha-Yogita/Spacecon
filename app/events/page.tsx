@@ -10,7 +10,7 @@ const eventImages: Record<string, string> = {
   "Celestial Feels": "/events/images/celestial.png",
   "Cosmic Treasure Hunt": "/events/images/cosmic.png",
   "Galactic Genius": "/events/images/galactic.png",
-  "Graph Madness": "/events/images/graph.png",
+  // "Graph Madness": "/events/images/graph.png",
   "Integration Bee": "/events/images/integration.png",
   "Odyssey to the Moon": "/events/images/odyssey.png",
   "Gaming Event": "/events/images/respawn.png",
@@ -31,8 +31,8 @@ const rulebookUrls: Record<string, string> = {
   "Gaming Event":
     "https://drive.google.com/file/d/1bQFRbY9x2y9hOFmWKgYkTxP0SDZY99xt/view",
 
-  "Graph Madness":
-    "https://drive.google.com/file/d/1-HW_QCpU_zFQjomebu65Nna-ei24uh7A/view",
+  // "Graph Madness":
+  //   "https://drive.google.com/file/d/1-HW_QCpU_zFQjomebu65Nna-ei24uh7A/view",
 
   "Integration Bee":
     "https://drive.google.com/file/d/1HD6P2BC8ZGNwtj8jANBtaq1TnIOhvQF0/view",
@@ -76,19 +76,19 @@ const eventsByDay = [
         rulebook: rulebookUrls["Odyssey to the Moon"],
         unstopUrl: "https://unstop.com/hackathons/odyssey-to-the-moon-spacecon-2026-netaji-subhas-university-of-technology-nsut-delhi-1627463" 
       },
-      { 
-        id: 3, 
-        title: "Graph Madness", 
-        tagline: "Graph Theory Challenge", 
-        description: "A unique event where participants interpret or create visual graphs and solve problems based on graph transformations.", 
-        date: "7 FEB", 
-        time: "1:00 PM - 4:00 PM", 
-        prize: "₹5,000", 
-        venue: "APJ-4", 
-        status: "OPEN", 
-        rulebook: rulebookUrls["Graph Madness"],
-        unstopUrl: "https://unstop.com/competitions/graph-madness-spacecon-2026-netaji-subhas-university-of-technology-nsut-delhi-1627435" 
-      },
+      // { 
+      //   id: 3, 
+      //   title: "Graph Madness", 
+      //   tagline: "Graph Theory Challenge", 
+      //   description: "A unique event where participants interpret or create visual graphs and solve problems based on graph transformations.", 
+      //   date: "7 FEB", 
+      //   time: "1:00 PM - 4:00 PM", 
+      //   prize: "₹5,000", 
+      //   venue: "APJ-4", 
+      //   status: "OPEN", 
+      //   rulebook: rulebookUrls["Graph Madness"],
+      //   unstopUrl: "https://unstop.com/competitions/graph-madness-spacecon-2026-netaji-subhas-university-of-technology-nsut-delhi-1627435" 
+      // },
     ]
   },
   {
