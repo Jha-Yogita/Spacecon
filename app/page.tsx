@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import HeroSection from '@/components/HeroSection';
 import EventsSection from '@/components/EventsSection';
 import SponsorsSection from '@/components/SponsorsSection';
@@ -10,101 +10,91 @@ import Footer from '@/components/Footer';
 
 export default function Home() {
   useEffect(() => {
-    // Check if we're in production (for Next.js)
-    const isProduction = process.env.NODE_ENV === 'production' || 
-                         window.location.hostname !== 'localhost';
+    const isProduction = process.env.NODE_ENV === 'production';
     
     if (isProduction) {
-      console.clear(); // Clear immediately
+      // Clear console and disable it
+      console.clear();
       
-      // 1. Override ALL console methods completely
-      const originalConsole = window.console;
-      const noop = () => {};
+      // Store original console
+      const originalConsole = { ...console };
       
-      // Replace the entire console object
-      Object.keys(originalConsole).forEach(key => {
-        if (typeof (originalConsole as any)[key] === 'function') {
-          (window.console as any)[key] = noop;
+      // Disable ALL console methods
+      const consoleMethods = [
+        'log', 'error', 'warn', 'info', 'debug', 
+        'trace', 'table', 'group', 'groupEnd', 'dir',
+        'assert', 'count', 'countReset', 'dirxml', 
+        'profile', 'profileEnd', 'time', 'timeLog', 
+        'timeEnd', 'timeStamp'
+      ];
+      
+      consoleMethods.forEach(method => {
+        (console as any)[method] = () => {};
+      });
+      
+      // Override the entire console object if needed
+      Object.getOwnPropertyNames(console).forEach(key => {
+        if (typeof (console as any)[key] === 'function') {
+          (console as any)[key] = () => {};
         }
       });
       
-      // 2. Monkey-patch WebGL context to suppress errors at source
-      const originalGetContext = HTMLCanvasElement.prototype.getContext;
-      HTMLCanvasElement.prototype.getContext = function(...args) {
-        const context = originalGetContext.apply(this, args);
+      // Catch WebGL errors by overriding error handler
+      const originalError = console.error;
+      console.error = function(...args: any[]) {
+        const message = args.map(arg => 
+          typeof arg === 'string' ? arg : String(arg)
+        ).join(' ');
         
-        if (context && (context as any).constructor.name.includes('WebGL')) {
-          // Override WebGL error reporting
-          const gl = context as WebGLRenderingContext;
-          const originalGetError = gl.getError;
-          
-          gl.getError = function() {
-            const error = originalGetError.call(gl);
-            // Return NO_ERROR for WebGL errors
-            if (error !== gl.NO_ERROR) {
-              return gl.NO_ERROR;
-            }
-            return error;
-          };
-        }
+        const webglErrors = [
+          'GL_INVALID_VALUE',
+          'GL_INVALID_FRAMEBUFFER_OPERATION',
+          'WebGL: too many errors',
+          'Texture dimensions must all be greater than zero',
+          'Framebuffer is incomplete'
+        ];
         
-        return context;
-      };
-      
-      // 3. Override WebGLRenderingContext methods that trigger errors
-      const WebGLProto = WebGLRenderingContext.prototype;
-      const originalFunctions = {
-        texStorage2D: WebGLProto.texStorage2D,
-        clear: WebGLProto.clear,
-        drawElements: WebGLProto.drawElements,
-        drawArrays: WebGLProto.drawArrays,
-      };
-      
-      // Wrap error-prone methods
-      WebGLProto.texStorage2D = function(...args: any[]) {
-        try {
-          return originalFunctions.texStorage2D.apply(this, args);
-        } catch (e) {
-          return;
+        // If it's a WebGL error, suppress it
+        const isWebGLError = webglErrors.some(error => message.includes(error));
+        if (!isWebGLError) {
+          originalError.apply(console, args);
         }
       };
       
-      WebGLProto.clear = function(...args: any[]) {
-        try {
-          return originalFunctions.clear.apply(this, args);
-        } catch (e) {
-          return;
-        }
-      };
-      
-      // 4. Block error event propagation completely
-      const originalErrorHandler = window.onerror;
-      window.onerror = function(message, source, lineno, colno, error) {
-        // Return true to prevent default error handling
-        return true;
-      };
-      
-      // 5. Also capture unhandled promise rejections
-      const originalUnhandledRejection = window.onunhandledrejection;
-      window.onunhandledrejection = function(event) {
-        event.preventDefault();
-        return false;
-      };
-      
-      // 6. Add error event listener that swallows all errors
+      // Block window.onerror globally
       window.addEventListener('error', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        return false;
+        const message = e.message || '';
+        const webglErrors = [
+          'GL_INVALID_VALUE',
+          'GL_INVALID_FRAMEBUFFER_OPERATION',
+          'Texture dimensions',
+          'Framebuffer is incomplete'
+        ];
+        
+        const isWebGLError = webglErrors.some(error => message.includes(error));
+        if (isWebGLError) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
       }, true); // Use capture phase
       
+      // Optional: Add a way to restore console for debugging
+      // Use a secret key combination
+      let secretCode = '';
+      const handleSecret = (e: KeyboardEvent) => {
+        secretCode += e.key;
+        if (secretCode.includes('debug')) {
+          Object.assign(console, originalConsole);
+          console.log('Console restored for debugging');
+        }
+        // Reset after 3 seconds
+        setTimeout(() => { secretCode = ''; }, 3000);
+      };
+      
+      window.addEventListener('keypress', handleSecret);
+      
       return () => {
-        // Restore originals on unmount (optional)
-        Object.assign(window.console, originalConsole);
-        HTMLCanvasElement.prototype.getContext = originalGetContext;
-        Object.assign(WebGLProto, originalFunctions);
-        window.onerror = originalErrorHandler;
-        window.onunhandledrejection = originalUnhandledRejection;
+        window.removeEventListener('keypress', handleSecret);
       };
     }
   }, []);
