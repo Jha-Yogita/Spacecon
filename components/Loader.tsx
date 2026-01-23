@@ -127,16 +127,16 @@ export default function Loader({ children }: { children: React.ReactNode }) {
           <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
             <div className="flex flex-col items-center justify-center w-full max-w-3xl mx-auto px-4 sm:px-8 py-4 sm:py-8">
               
-              <div className="relative w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 flex items-center justify-center mb-4 sm:mb-8">
+              <div className="relative w-44 h-44 sm:w-56 sm:h-56 md:w-72 md:h-72 flex items-center justify-center mb-4 sm:mb-8">
                 <div className="absolute inset-0 rounded-full border-4 sm:border-6 md:border-8 border-white" 
                   style={{ boxShadow: '0 0 0 2px #000, 0 0 40px rgba(220, 38, 38, 0.4)' }} />
                 
-                <div className="absolute inset-1 sm:inset-2 md:inset-3 rounded-full border-2 sm:border-3 md:border-4 border-black bg-black" />
+                <div className="absolute inset-1 sm:inset-2 md:inset-4 rounded-full border-2 sm:border-3 md:border-4 border-black bg-black" />
 
-                <svg className="absolute inset-4 sm:inset-6 md:inset-7 w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52" style={{ animation: 'ring-rotate 3s linear infinite' }}>
+                <svg className="absolute inset-4 sm:inset-6 md:inset-8 w-36 h-36 sm:w-44 sm:h-44 md:w-56 md:h-56" style={{ animation: 'ring-rotate 3s linear infinite' }}>
                   <circle cx="72" cy="72" r="67" stroke="#1A1A1A" strokeWidth="12" fill="none" className="sm:hidden" />
                   <circle cx="88" cy="88" r="83" stroke="#1A1A1A" strokeWidth="14" fill="none" className="hidden sm:block md:hidden" />
-                  <circle cx="104" cy="104" r="99" stroke="#1A1A1A" strokeWidth="16" fill="none" className="hidden md:block" />
+                  <circle cx="112" cy="112" r="107" stroke="#1A1A1A" strokeWidth="16" fill="none" className="hidden md:block" />
                   <circle
                     cx="72"
                     cy="72"
@@ -170,28 +170,28 @@ export default function Loader({ children }: { children: React.ReactNode }) {
                     }}
                   />
                   <circle
-                    cx="104"
-                    cy="104"
-                    r="99"
+                    cx="112"
+                    cy="112"
+                    r="107"
                     stroke="#DC2626"
                     strokeWidth="18"
                     fill="none"
-                    strokeDasharray="622"
+                    strokeDasharray="672"
                     strokeLinecap="round"
                     className="hidden md:block"
                     style={{
-                      strokeDashoffset: 622 - (622 * progress) / 100,
+                      strokeDashoffset: 672 - (672 * progress) / 100,
                       transition: 'stroke-dashoffset 0.1s linear',
                       filter: 'drop-shadow(0 0 10px rgba(220, 38, 38, 0.8))',
                     }}
                   />
                   <circle cx="72" cy="72" r="77" stroke="#FFF" strokeWidth="2" fill="none" opacity="0.5" className="sm:hidden" />
                   <circle cx="88" cy="88" r="93" stroke="#FFF" strokeWidth="2" fill="none" opacity="0.5" className="hidden sm:block md:hidden" />
-                  <circle cx="104" cy="104" r="109" stroke="#FFF" strokeWidth="2" fill="none" opacity="0.5" className="hidden md:block" />
+                  <circle cx="112" cy="112" r="117" stroke="#FFF" strokeWidth="2" fill="none" opacity="0.5" className="hidden md:block" />
                 </svg>
 
                 <div className="absolute inset-0 flex items-center justify-center" style={{ animation: 'star-spin 4s linear infinite' }}>
-                  <svg width="55" height="55" viewBox="0 0 100 100" className="sm:w-[70px] sm:h-[70px] md:w-[80px] md:h-[80px]">
+                  <svg width="55" height="55" viewBox="0 0 100 100" className="sm:w-[70px] sm:h-[70px] md:w-[90px] md:h-[90px]">
                     <polygon
                       points="50,10 61,40 92,40 67,57 77,88 50,70 23,88 33,57 8,40 39,40"
                       fill="#DC2626"
@@ -203,38 +203,38 @@ export default function Loader({ children }: { children: React.ReactNode }) {
                 </div>
 
                 {/* Mobile + tablet → 4 squares */}
-<div className="block md:hidden">
-  {[0, 90, 180, 270].map((rotation, i) => (
-    <div
-      key={i}
-      className="absolute w-4 h-4 sm:w-5 sm:h-5 bg-red-600 border-2 sm:border-3 border-white"
-      style={{
-        left: '50%',
-        top: '0',
-        marginLeft: rotation === 0 || rotation === 180 ? '-8px' : '-10px',
-        marginTop: rotation === 0 || rotation === 180 ? '-8px' : '-10px',
-        transform: `rotate(${45 + rotation}deg) translateY(${rotation === 0 || rotation === 180 ? '-93px' : '-121px'})`,
-        transformOrigin: rotation === 0 || rotation === 180 ? '8px 101px' : '10px 131px',
-      }}
-    />
-  ))}
-</div>
+                <div className="block md:hidden">
+                  {[0, 90, 180, 270].map((rotation, i) => (
+                    <div
+                      key={i}
+                      className="absolute w-4 h-4 sm:w-5 sm:h-5 bg-red-600 border-2 sm:border-3 border-white"
+                      style={{
+                        left: '50%',
+                        top: '0',
+                        marginLeft: rotation === 0 || rotation === 180 ? '-8px' : '-10px',
+                        marginTop: rotation === 0 || rotation === 180 ? '-8px' : '-10px',
+                        transform: `rotate(${45 + rotation}deg) translateY(${rotation === 0 || rotation === 180 ? '-93px' : '-121px'})`,
+                        transformOrigin: rotation === 0 || rotation === 180 ? '8px 101px' : '10px 131px',
+                      }}
+                    />
+                  ))}
+                </div>
 
-{/* Laptop & up → ONLY 180 */}
-<div className="hidden md:block">
-  <div
-    className="absolute w-4 h-4 sm:w-5 sm:h-5 bg-red-600 border-2 sm:border-3 border-white"
-    style={{
-      left: '50%',
-      top: '0',
-      marginLeft: '-8px',
-      marginTop: '-8px',
-      transform: 'rotate(225deg) translateY(-93px)',
-      transformOrigin: '8px 101px',
-    }}
-  />
-</div>
-</div>
+                {/* Laptop & up → ONLY 180 */}
+                <div className="hidden md:block">
+                  <div
+                    className="absolute w-6 h-6 bg-red-600 border-3 border-white"
+                    style={{
+                      left: '50%',
+                      top: '50%',
+                      marginLeft: '-12px',
+                      marginTop: '-12px',
+                      transform: 'rotate(225deg) translateY(-150px)',
+                      transformOrigin: '12px 12px',
+                    }}
+                  />
+                </div>
+              </div>
 
 
               <div className="w-full flex justify-center mb-3 sm:mb-6">
