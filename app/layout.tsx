@@ -3,6 +3,9 @@ import { Inter, Bangers, Montserrat } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Loader from "@/components/Loader";
+import SilenceConsole from "@/components/SilenceConsole";
+
+
 
 const inter = Inter({
   subsets: ["latin"],
@@ -36,6 +39,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${bangers.variable} ${montserrat.variable}`}
       >
+        <SilenceConsole />
         <Loader>
           <Navbar />
           <main className="pt-24">{children}</main>
