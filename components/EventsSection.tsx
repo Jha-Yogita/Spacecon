@@ -77,7 +77,7 @@ const eventsData = [
   { 
     id: 6, 
     title: "Gaming Event", 
-    tagline: "PC & Mobile Gaming", 
+    tagline: "Respawn", 
     description: "A PC & Mobile gaming event featuring exciting tournaments and competitions.", 
     prize: "₹4,000", 
     date: "8 FEB", 
