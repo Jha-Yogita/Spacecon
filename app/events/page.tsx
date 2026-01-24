@@ -13,7 +13,7 @@ const eventImages: Record<string, string> = {
   "Graph Madness": "/events/images/graph.png",
   "Integration Bee": "/events/images/integration.png",
   "Odyssey to the Moon": "/events/images/odyssey.png",
-  "Gaming Event": "/events/images/respawn.png",
+  "Respawn": "/events/images/respawn.png",
   "Through My Lens": "/events/images/throughmylens.png",
 };
 
@@ -28,7 +28,7 @@ const rulebookUrls: Record<string, string> = {
   "Galactic Genius":
     "https://drive.google.com/file/d/1W0k90h7SFLT42yvwpKhHW5QOSbUWE82E/view",
 
-  "Gaming Event":
+  "Respawn":
     "https://drive.google.com/file/d/1bQFRbY9x2y9hOFmWKgYkTxP0SDZY99xt/view",
 
   "Graph Madness":
@@ -131,7 +131,7 @@ const eventsByDay = [
         prize: "₹4,000", 
         venue: "APJ-4", 
         status: "OPEN", 
-        rulebook: rulebookUrls["Gaming Event"],
+        rulebook: rulebookUrls["Respawn"],
         unstopUrl: "https://unstop.com/events/respawnnsut-spacecon-2026-netaji-subhas-university-of-technology-nsut-delhi-1628154" 
       },
       { 
