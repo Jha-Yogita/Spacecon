@@ -25,6 +25,9 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: "Spacecon",
   description: "Premium navbar example",
+   icons: {
+    icon: '/favicon.png',
+  },
 };
 
 export default function RootLayout({
