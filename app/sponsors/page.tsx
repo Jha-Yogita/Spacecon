@@ -8,22 +8,22 @@ const currentYear = new Date().getFullYear();
 
 // 2025 Sponsors with their actual image filenames
 const sponsor2025 = [
-  { name: 'edwise', image: 'edwise.png' },
-  { name: 'eazydiner', image: 'eazydiner.png' },
-  { name: 'myequation', image: 'myequation.png' },
-  { name: 'toponepercent', image: 'toponepercent.png' },
-  { name: 'interviewbuddy', image: 'interviewbuddy.png' },
-  { name: 'pinerprinters', image: 'pineprinters.png' },
-  { name: 'smartandhandsome', image: 'smartandhandsome.png' },
-  { name: 'whizzkin', image: 'whizzkin.png' },
-  { name: 'easemytrip', image: 'easemytrip.png' },
-  { name: 'stockgrow', image: 'stockgrow.png' },
-  { name: 'theaffordable', image: 'theaffordable.png' },
-  { name: 'truscholar', image: 'truscholar.png' },
-  { name: 'grabon', image: 'grabon.png' },
-  { name: 'bookymmentor', image: 'bookmymentor.png' },
-  { name: 'hackquest', image: 'hackquest.png' },
-  { name: 'unstop', image: 'unstop.jpg' },
+  { name: 'edwise', image: 'edwise.PNG' },
+  { name: 'eazydiner', image: 'eazydiner.PNG' },
+  { name: 'myequation', image: 'myequation.PNG' },
+  { name: 'toponepercent', image: 'toponepercent.PNG' },
+  { name: 'interviewbuddy', image: 'interviewbuddy.PNG' },
+  { name: 'pinerprinters', image: 'pineprinters.PNG' },
+  { name: 'smartandhandsome', image: 'smartandhandsome.PNG' },
+  { name: 'whizzkin', image: 'whizzkin.PNG' },
+  { name: 'easemytrip', image: 'easemytrip.PNG' },
+  { name: 'stockgrow', image: 'stockgrow.PNG' },
+  { name: 'theaffordable', image: 'theaffordable.PNG' },
+  { name: 'truscholar', image: 'truscholar.PNG' },
+  { name: 'grabon', image: 'grabon.PNG' },
+  { name: 'bookymmentor', image: 'bookmymentor.PNG' },
+  { name: 'hackquest', image: 'hackquest.PNG' },
+  { name: 'unstop', image: 'unstop.JPG' },
 ]
 
 // 2026 Coming Soon Sponsors (placeholder) - only for 2026
