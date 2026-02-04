@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 const sponsor2025 = [
   { name: 'edwise', image: 'edwise.PNG' },
   { name: 'eazydiner', image: 'eazydiner.PNG' },
-  { name: 'myequation', image: 'myequation.PNG' },
+  { name: 'myequation', image: 'myequation.png' },
   { name: 'toponepercent', image: 'toponepercent.PNG' },
   { name: 'interviewbuddy', image: 'interviewbuddy.PNG' },
   { name: 'pinerprinters', image: 'pineprinters.PNG' },
