@@ -44,7 +44,6 @@ const sponsor2026: Sponsor2026[] = [
   { name: 'chesscom', image: 'Chess.com.png', tag: 'Associate Sponsor' },
   { name: 'startupnewsfy', image: 'StartUpnews.Fyi.jpeg', tag: 'Media Partner' },
   { name: 'welogored', image: 'We Logo Red.jpg.jpeg', tag: 'Digital Media Partner' },
-  { name: 'chesscoffeeconnect', image: 'chess.jpg', tag: 'Community Partner' },
 ]
 
 const sponsorBgColors = [
@@ -213,7 +212,7 @@ export default function SponsorsPage() {
               {year === '2026' && 'tag' in s && (
                 <div className="mt-3 sm:mt-4 flex justify-center">
                   <div className="mono inline-block px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-bold uppercase tracking-wide bg-gradient-to-r from-red-600 to-red-700 text-white border-2 border-white/90 shadow-[2px_2px_0_#000] sm:shadow-[3px_3px_0_#000] transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(220,38,38,0.6)] group-hover:scale-105">
-                    {s.tag}
+                    {(s as SponsorWithId2026).tag}
                   </div>
                 </div>
               )}
