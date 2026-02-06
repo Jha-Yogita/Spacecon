@@ -42,7 +42,7 @@ const sponsor2025: Sponsor2025[] = [
 const sponsor2026: Sponsor2026[] = [
   { name: 'careerlauncher', image: 'Career Launcher.svg', tag: 'Global Education Partner' },
   { name: 'chesscom', image: 'Chess.com.png', tag: 'Associate Sponsor' },
-  { name: 'startupnewsfy', image: 'StartUpnews.Fyi.jpeg', tag: 'Media Partner' },
+  { name: 'startupnewsfy', image: 'StartUpnews.jpeg', tag: 'Media Partner' },
   { name: 'welogored', image: 'We Logo Red.jpg.jpeg', tag: 'Digital Media Partner' },
   { name: 'chesscoffeeconnect', image: 'chess.jpg', tag: 'Community Partner' },
  
