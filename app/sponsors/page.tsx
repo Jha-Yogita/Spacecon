@@ -44,6 +44,8 @@ const sponsor2026: Sponsor2026[] = [
   { name: 'chesscom', image: 'Chess.com.png', tag: 'Associate Sponsor' },
   { name: 'startupnewsfy', image: 'StartUpnews.Fyi.jpeg', tag: 'Media Partner' },
   { name: 'welogored', image: 'We Logo Red.jpg.jpeg', tag: 'Digital Media Partner' },
+  { name: 'chesscoffeeconnect', image: 'chess.jpg', tag: 'Community Partner' },
+ 
 ]
 
 const sponsorBgColors = [
